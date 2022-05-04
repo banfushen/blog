@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: en
+title: bbbbbfs
+subtitle: '欠的技术债，早晚要还'
+description: 'crud程序员'
+keywords: 'golang，lua，c，python，nodejs，k8s，linux'
+author: Fushen Ban
+language: zh-CN
 timezone: ''
 
 # URL
