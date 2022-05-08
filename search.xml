@@ -20,7 +20,11 @@
   <entry>
     <title>搬迁</title>
     <url>/2022/05/04/%E6%90%AC%E8%BF%81/</url>
-    <content><![CDATA[<h1 id="2022-5-4"><a href="#2022-5-4" class="headerlink" title="2022.5.4"></a>2022.5.4</h1><p>在github上搭建个人的blog，参考了<a href="https://www.zhihu.com/question/23934523。之后会慢慢把自己的博客都搬过来。">https://www.zhihu.com/question/23934523。之后会慢慢把自己的博客都搬过来。</a></p>
+    <content><![CDATA[<h1 id="2022-5-4"><a href="#2022-5-4" class="headerlink" title="2022.5.4"></a>2022.5.4</h1><p>计划将csnd的博客全部搬到github</p>
+<ul>
+<li><a href="https://www.zhihu.com/question/23934523">搭建参考</a></li>
+<li><a href="https://www.cnblogs.com/unirithe/p/15530636.html">无法显示图片解决</a>，放入图片后要进行<code>hexo clean, hexo g, hexo s</code>即可在本地启动中看到</li>
+</ul>
 ]]></content>
   </entry>
 </search>
