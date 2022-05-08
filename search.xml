@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2022/05/04/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+    <title>Ubuntu 18.04.3 安装redis，配置端口与密码</title>
+    <url>/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/</url>
+    <content><![CDATA[<h1 id="Ubuntu-18-04-3-安装redis，配置端口与密码"><a href="#Ubuntu-18-04-3-安装redis，配置端口与密码" class="headerlink" title="Ubuntu 18.04.3 安装redis，配置端口与密码"></a>Ubuntu 18.04.3 安装redis，配置端口与密码</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><code>sudo apt-get install redis-server</code></p>
+<h2 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h2><p><code>ps -aux | grep redis</code><br><img src="/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/803319237335.png" alt></p>
+<h2 id="修改端口"><a href="#修改端口" class="headerlink" title="修改端口"></a>修改端口</h2><p><code>sudo subl /etc/redis/redis.conf</code>，改为自己想要的端口。<br><img src="/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/1589519230469.png" alt></p>
+<h2 id="重启redis"><a href="#重启redis" class="headerlink" title="重启redis"></a>重启redis</h2><p><code>sudo service redis-server restart</code><br><code>ps -aux | grep redis</code><br><img src="/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/2428019220999.png" alt></p>
+<h2 id="密码修改"><a href="#密码修改" class="headerlink" title="密码修改"></a>密码修改</h2><p>继续修改<code>/etc/redis/redis.conf</code>，找到一个  # requirepass foobared  的字段将这个字段的注释取消掉，这个字段是数据的访问密码，将foobared替换成自己想要设置的密码。<br><img src="/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/3274819223503.png" alt><br>修改后重启redis，<code>sudo service redis-server restart</code><br><img src="/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/3825619232450.png" alt></p>
+<p>sbul是我装了sublime text之后的编辑器，如果没有安装，将subl换成vi/vim即可。我自己通过以上方式，已能修改，做次记录。</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>hello-world</title>
-    <url>/2022/05/04/hello-world-1/</url>
-    <content><![CDATA[]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
   </entry>
   <entry>
     <title>搬迁</title>
