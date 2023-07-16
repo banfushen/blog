@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="用了很久lua，框架原因，今天写一下lua调用so库。        真的是不做不知道，一做真奇妙。网上那么多篇文章，基本上都是你抄我，我抄你。错误都一样，验证都没验证过。。。        先声明一下我的环境，Ubuntu 18.04，lua5.3  1.概念补充，lua和c交互是通过一个虚拟的栈来交互的，为什么是这样？  C与Lua之间通信关键内容在于一个虚拟的栈。几乎所有的调用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu Lua调用C函数。">
+<meta property="og:url" content="http://example.com/2020/10/09/Ubuntu%20Lua%E8%B0%83%E7%94%A8C%E5%87%BD%E6%95%B0%E3%80%82/index.html">
+<meta property="og:site_name" content="拼图收集者">
+<meta property="og:description" content="用了很久lua，框架原因，今天写一下lua调用so库。        真的是不做不知道，一做真奇妙。网上那么多篇文章，基本上都是你抄我，我抄你。错误都一样，验证都没验证过。。。        先声明一下我的环境，Ubuntu 18.04，lua5.3  1.概念补充，lua和c交互是通过一个虚拟的栈来交互的，为什么是这样？  C与Lua之间通信关键内容在于一个虚拟的栈。几乎所有的调用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201009195100952.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201009195329107.png">
+<meta property="article:published_time" content="2020-10-09T11:54:53.000Z">
+<meta property="article:modified_time" content="2023-07-16T09:11:17.159Z">
+<meta property="article:author" content="Fushen Ban">
+<meta property="article:tag" content="后端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201009195100952.png">
+
+<link rel="canonical" href="http://example.com/2020/10/09/Ubuntu%20Lua%E8%B0%83%E7%94%A8C%E5%87%BD%E6%95%B0%E3%80%82/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Ubuntu Lua调用C函数。 | 拼图收集者</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">拼图收集者</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">欠的技术债，早晚都要还</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/09/Ubuntu%20Lua%E8%B0%83%E7%94%A8C%E5%87%BD%E6%95%B0%E3%80%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fushen Ban">
+      <meta itemprop="description" content="正在进化">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拼图收集者">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ubuntu Lua调用C函数。
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-09 19:54:53" itemprop="dateCreated datePublished" datetime="2020-10-09T19:54:53+08:00">2020-10-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-16 17:11:17" itemprop="dateModified" datetime="2023-07-16T17:11:17+08:00">2023-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/lua/" itemprop="url" rel="index"><span itemprop="name">lua</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <span id="more"></span>
+<p>      用了很久lua，框架原因，今天写一下lua调用so库。</p>
+
+<p>      真的是不做不知道，一做真奇妙。网上那么多篇文章，基本上都是你抄我，我抄你。错误都一样，验证都没验证过。。。</p>
+
+<p>      先声明一下我的环境，Ubuntu 18.04，lua5.3</p>
+
+<p><strong>1.概念补充，lua和c交互是通过一个虚拟的栈来交互的，为什么是这样？</strong></p>
+
+<p>C与Lua之间通信关键内容在于一个虚拟的栈。几乎所有的调用都是对栈上的值进行操作，所有C与Lua之间的数据交换也都通过这个栈来完成。另外，也可以使用栈来保存临时变量。每一个与Lua通信的C函数都有其独有的虚拟栈，虚拟栈由Lua管理。<br>
+栈的使用解决了C和Lua之间两个不协调的问题：第一，Lua会自动进行垃圾收集，而C要求显式的分配存储单元，两者引起的矛盾。第二，Lua中的动态类型和C中的静态类型不一致引起的混乱。</p>
+
+<p><strong>2.要想调用C中的方法，则需要把C编译成动态库，我是在linux下，所以是.so，代码如下</strong></p>
+
+<p>c_so.cpp</p>
+
+<pre>
+<code class="language-cpp">extern "C" &#123;
+  #include &lt;stdio.h&gt;
+  #include &lt;lua.h&gt;
+  #include &lt;lualib.h&gt;
+  #include &lt;lauxlib.h&gt;
+&#125;
+
+
+//自定义函数
+static int my_add(lua_State *L)
+&#123;
+    int x = lua_tonumber(L,1); //第一个参数,转换为数字
+    int y = lua_tonumber(L,2); //第二个参数,转换为数字
+    int sum = x + y;           
+    lua_pushnumber(L, sum);    //将函数的结果压入栈中。如果有多个返回值，可以在这里多次压入栈中。
+    return 1; //返回sum计算结果
+&#125;
+
+static int showstr(lua_State *L)
+&#123;
+   //从lua中传入的第一个参数
+   const char *str = lua_tostring (L, 1);
+
+   printf ("c program str = %s\n", str);
+   return 0;
+&#125;
+
+/* 需要一个"luaL_Reg"类型的结构体，其中每一个元素对应一个提供给Lua的函数。
+ * 每一个元素中包含此函数在Lua中的名字，以及该函数在C库中的函数指针。
+ * 最后一个元素为“哨兵元素”（两个"NULL"），用于告诉Lua没有其他的函数需要注册。
+ */
+static luaL_Reg funclist[] =
+&#123;
+    &#123;"add", my_add&#125;, //my_add()函数，lua中访问时使用名称为add
+    &#123;"show", showstr&#125;, //showstr()函数，lua中访问时使用名称为show
+    &#123;NULL, NULL&#125;,  //最后必须有这个
+&#125;;
+
+/* 此函数为C库中的“特殊函数”。
+ * 通过调用它注册所有C库中的函数，并将它们存储在适当的位置。
+ * 此函数的命名规则应遵循：
+ * 1、使用"luaopen_"作为前缀。
+ * 2、前缀之后的名字将作为"require"的参数。
+ */
+extern "C" int luaopen_mylib(lua_State *L )
+&#123;
+     /* void luaL_newlib (lua_State *L, const luaL_Reg l[]);
+     * 创建一个新的"table"，并将"l"中所列出的函数注册为"table"的域。
+     */ 
+    luaL_newlib(L, funclist);
+    return 1;
+&#125;</code></pre>
+
+<p>然后编译 <strong>gcc -shared -fPIC c_so.cpp -o mylib.so -I /home/lk/my_skynet_learning/skynet/3rd/lua/</strong></p>
+
+<p>编译完成后将会得到mylib.so</p>
+
+<p><img alt height="41" src="https://img-blog.csdnimg.cn/20201009195100952.png" width="474"></p>
+
+<p>testso.lua</p>
+
+<pre>
+<code class="language-bash">local mylib = require "mylib"
+
+local i = mylib.add(1, 2)
+print(i)
+
+local j = mylib.show('真的太多坑了')</code></pre>
+
+<p>运行结果如下</p>
+
+<p><img alt height="137" src="https://img-blog.csdnimg.cn/20201009195329107.png" width="680"></p>
+
+<p> </p>
+
+<p>网上搜的真的是各种坑。哎。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag"># 后端</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/23/%E6%9C%80%E8%BF%91%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/" rel="prev" title="最近碰到的一些服务器问题的总结">
+      <i class="fa fa-chevron-left"></i> 最近碰到的一些服务器问题的总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/23/skynet%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95%EF%BC%88%E5%9B%9B%EF%BC%89cluster%E9%9B%86%E7%BE%A4%E9%80%9A%E4%BF%A1%E4%B8%AD%EF%BC%8C%E4%BC%A0%E9%80%92%E7%9A%84%E6%B6%88%E6%81%AF%E8%BF%87%E5%A4%A7%E9%80%A0%E6%88%90%E7%9A%84%E9%97%AE%E9%A2%98%E3%80%82/" rel="next" title="skynet踩坑记录（四）cluster集群通信中，传递的消息过大造成的问题。">
+      skynet踩坑记录（四）cluster集群通信中，传递的消息过大造成的问题。 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Fushen Ban</p>
+  <div class="site-description" itemprop="description">正在进化</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fushen Ban</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'ee52e5fb1a0d71a12589',
+      clientSecret: '0e5c7a05b1c98f285aa97e6cdccbd884ade19328',
+      repo        : 'banfushen.github.io',
+      owner       : 'banfushen',
+      admin       : ['banfushen'],
+      id          : '15c7e84243dc1f6a958cba1b73a7f97a',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+    </div>
+</body>
+</html>

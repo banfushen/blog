@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="上一篇分析之后，本来第二部分分析是想分析start之后的逻辑的，这样会让人比较快速的理解skynet框架。但想想还是顺着代码启动的思路写下去会比较好，我觉得这样我自己更容易理解。        bootstrap是引导程序的意思，在skynet中，的确也是做了服务器工作的前置任务。  再skynet_start.c中   &#x2F;&#x2F;启动logger服务 struct skynet_cont">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从头开始读skynet源码（2）服务器启动的前置任务 bootstrap 与 skynte.newservice">
+<meta property="og:url" content="http://example.com/2020/12/13/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E8%AF%BBskynet%E6%BA%90%E7%A0%81%EF%BC%882%EF%BC%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%90%AF%E5%8A%A8%E7%9A%84%E5%89%8D%E7%BD%AE%E4%BB%BB%E5%8A%A1%20bootstrap%20%E4%B8%8E%20skynte.newservice/index.html">
+<meta property="og:site_name" content="拼图收集者">
+<meta property="og:description" content="上一篇分析之后，本来第二部分分析是想分析start之后的逻辑的，这样会让人比较快速的理解skynet框架。但想想还是顺着代码启动的思路写下去会比较好，我觉得这样我自己更容易理解。        bootstrap是引导程序的意思，在skynet中，的确也是做了服务器工作的前置任务。  再skynet_start.c中   &#x2F;&#x2F;启动logger服务 struct skynet_cont">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201213131031565.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-12-13T07:28:46.000Z">
+<meta property="article:modified_time" content="2023-07-16T09:11:17.150Z">
+<meta property="article:author" content="Fushen Ban">
+<meta property="article:tag" content="后端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201213131031565.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="http://example.com/2020/12/13/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E8%AF%BBskynet%E6%BA%90%E7%A0%81%EF%BC%882%EF%BC%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%90%AF%E5%8A%A8%E7%9A%84%E5%89%8D%E7%BD%AE%E4%BB%BB%E5%8A%A1%20bootstrap%20%E4%B8%8E%20skynte.newservice/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>从头开始读skynet源码（2）服务器启动的前置任务 bootstrap 与 skynte.newservice | 拼图收集者</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">拼图收集者</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">欠的技术债，早晚都要还</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/13/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E8%AF%BBskynet%E6%BA%90%E7%A0%81%EF%BC%882%EF%BC%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%90%AF%E5%8A%A8%E7%9A%84%E5%89%8D%E7%BD%AE%E4%BB%BB%E5%8A%A1%20bootstrap%20%E4%B8%8E%20skynte.newservice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fushen Ban">
+      <meta itemprop="description" content="正在进化">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拼图收集者">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从头开始读skynet源码（2）服务器启动的前置任务 bootstrap 与 skynte.newservice
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-13 15:28:46" itemprop="dateCreated datePublished" datetime="2020-12-13T15:28:46+08:00">2020-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-16 17:11:17" itemprop="dateModified" datetime="2023-07-16T17:11:17+08:00">2023-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/skynet/" itemprop="url" rel="index"><span itemprop="name">skynet</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <span id="more"></span>
+<p>      上一篇分析之后，本来第二部分分析是想分析start之后的逻辑的，这样会让人比较快速的理解skynet框架。但想想还是顺着代码启动的思路写下去会比较好，我觉得这样我自己更容易理解。</p>
+
+<p>      bootstrap是引导程序的意思，在skynet中，的确也是做了服务器工作的前置任务。</p>
+
+<p>再skynet_start.c中</p>
+
+<pre>
+<code class="language-cpp">//启动logger服务
+struct skynet_context *ctx = skynet_context_new(config-&gt;logservice, config-&gt;logger);
+    if (ctx == NULL) &#123;
+    fprintf(stderr, "Can't launch %s service\n", config-&gt;logservice);
+    exit(1);
+    &#125;
+
+skynet_handle_namehandle(skynet_context_handle(ctx), "logger");
+
+//启动配置中的bootstrap服务
+bootstrap(ctx, config-&gt;bootstrap);
+
+//调用start传入配置线程数量
+start(config-&gt;thread);</code></pre>
+
+<p>查询配置</p>
+
+<p><img alt height="326" src="https://img-blog.csdnimg.cn/20201213131031565.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="873"></p>
+
+<p>可以得知，传入的参数是"snlua bootsrtap"，再看到函数的实现</p>
+
+<pre>
+<code class="language-cpp">static void
+bootstrap(struct skynet_context * logger, const char * cmdline) &#123;
+    int sz = strlen(cmdline);
+    char name[sz+1];
+    char args[sz+1];
+    sscanf(cmdline, "%s %s", name, args);
+    //name = snlua, args = bootstrap
+    struct skynet_context *ctx = skynet_context_new(name, args);
+    if (ctx == NULL) &#123;
+    skynet_error(NULL, "Bootstrap error : %s\n", cmdline);
+    skynet_context_dispatchall(logger);
+    exit(1);
+    &#125;
+&#125;</code></pre>
+
+<p>接下来看到skynet_context_new方法，在skynet_server.c</p>
+
+<pre>
+<code class="language-cpp">struct skynet_context * 
+skynet_context_new(const char * name, const char *param) &#123;
+        //先查询snlua模块，这是一个C写的服务，在skynet_start.c中
+        //skynet_statc方法，skynet_module_init(config-&gt;module_path)进行初始化
+    struct skynet_module * mod = skynet_module_query(name);
+
+    if (mod == NULL)
+        return NULL;
+
+        //分析1
+        //这里创建一个新的lua虚拟机，所以会有各个服务的隔离
+    void *inst = skynet_module_instance_create(mod);
+    if (inst == NULL)
+        return NULL;
+    struct skynet_context * ctx = skynet_malloc(sizeof(*ctx));
+    CHECKCALLING_INIT(ctx)
+
+    ctx-&gt;mod = mod;
+    ctx-&gt;instance = inst;
+    ctx-&gt;ref = 2;
+    ctx-&gt;cb = NULL;
+    ctx-&gt;cb_ud = NULL;
+    ctx-&gt;session_id = 0;
+    ctx-&gt;logfile = NULL;
+
+    ctx-&gt;init = false;
+    ctx-&gt;endless = false;
+
+    ctx-&gt;cpu_cost = 0;
+    ctx-&gt;cpu_start = 0;
+    ctx-&gt;message_count = 0;
+    ctx-&gt;profile = G_NODE.profile;
+    // Should set to 0 first to avoid skynet_handle_retireall get an uninitialized handle
+    ctx-&gt;handle = 0;    
+    ctx-&gt;handle = skynet_handle_register(ctx);
+    struct message_queue * queue = ctx-&gt;queue = skynet_mq_create(ctx-&gt;handle);
+    // init function maybe use ctx-&gt;handle, so it must init at last
+    context_inc();
+
+    CHECKCALLING_BEGIN(ctx)
+        //分析2
+        //这里使用snlua，启动传入的bootstrap.lua
+    int r = skynet_module_instance_init(mod, inst, ctx, param);
+    CHECKCALLING_END(ctx)
+    if (r == 0) &#123;
+        struct skynet_context * ret = skynet_context_release(ctx);
+        if (ret) &#123;
+            ctx-&gt;init = true;
+        &#125;
+        skynet_globalmq_push(queue);
+        if (ret) &#123;
+            skynet_error(ret, "LAUNCH %s %s", name, param ? param : "");
+        &#125;
+        return ret;
+    &#125; else &#123;
+        skynet_error(ctx, "FAILED launch %s", name);
+        uint32_t handle = ctx-&gt;handle;
+        skynet_context_release(ctx);
+        skynet_handle_retire(handle);
+        struct drop_t d = &#123; handle &#125;;
+        skynet_mq_release(queue, drop_message, &amp;d);
+        return NULL;
+    &#125;
+&#125;</code></pre>
+
+<p>按照分析1、分析2的顺序。先看到skynet_module_instance_create，分析1</p>
+
+<pre>
+<code class="language-cpp">void * 
+skynet_module_instance_create(struct skynet_module *m) &#123;
+    if (m-&gt;create) &#123;
+        return m-&gt;create(); // 调用c模块的create
+    &#125; else &#123;
+        return (void *)(intptr_t)(~0);
+    &#125;
+&#125;</code></pre>
+
+<p>看到snlua的create，再service_snlua.c，构建新的lua虚拟机，所以有服务之间的隔离。</p>
+
+<pre>
+<code class="language-cpp">struct snlua *
+snlua_create(void) &#123;
+    struct snlua * l = skynet_malloc(sizeof(*l));    
+    memset(l,0,sizeof(*l));
+    l-&gt;mem_report = MEMORY_WARNING_REPORT;
+    l-&gt;mem_limit = 0;
+    l-&gt;L = lua_newstate(lalloc, l); // 这里构建了新的lua虚拟机
+    return l;
+&#125;</code></pre>
+
+<p>创建完虚拟机后，看到分析2，到skynet_module_instance_init，在skynet_module.c中，可以看到，其实就是上面代码注释说的，使用snlua的init去启动bootstarp</p>
+
+<pre>
+<code class="language-cpp">int
+skynet_module_instance_init(struct skynet_module *m, void * inst, struct skynet_context *ctx, const char * parm) &#123;
+    return m-&gt;init(inst, ctx, parm);
+&#125;</code></pre>
+
+<p>接下来我们到service_snlua.lua中看是怎么使用snlua去启动一个lua脚本的，skynet中，C模块的定义，必须要有一些方法，比如init，上面的m-&gt;init，最后会调用到下面的函数</p>
+
+<pre>
+<code class="language-cpp">int
+snlua_init(struct snlua *l, struct skynet_context *ctx, const char * args) &#123;
+    int sz = strlen(args);
+    char * tmp = skynet_malloc(sz);
+    memcpy(tmp, args, sz);
+        //给需要初始化的服务设置回调函数为上面的luanch_cb
+    skynet_callback(ctx, l , launch_cb);
+    const char * self = skynet_command(ctx, "REG", NULL);
+    uint32_t handle_id = strtoul(self+1, NULL, 16);
+    // it must be first message
+        // 给服务发送消息触发上面的launch_cb
+        // 这里先知道触发上面，具体的消息处理我们的分析会说明
+        // 给服务发送消息之后，具体的服务是怎么去处理的
+    skynet_send(ctx, 0, handle_id, PTYPE_TAG_DONTCOPY,0, tmp, sz);
+    return 0;
+&#125;</code></pre>
+
+<p>发送消息后，调用到luanch_cb</p>
+
+<pre>
+<code class="language-cpp">static int
+launch_cb(struct skynet_context * context, void *ud, int type, int session, uint32_t source , const void * msg, size_t sz) &#123;
+    assert(type == 0 &amp;&amp; session == 0);
+    struct snlua *l = ud;
+    skynet_callback(context, NULL, NULL);
+    int err = init_cb(l, context, msg, sz);//再这进行服务的最后初始化，分析在下面
+    if (err) &#123;
+        skynet_command(context, "EXIT", NULL);
+    &#125;
+
+    return 0;
+&#125;</code></pre>
+
+<p>最后调用init_cb，下面是精简了的代码，只是为了说明调用流程</p>
+
+<pre>
+<code class="language-cpp">static int
+init_cb(struct snlua *l, struct skynet_context *ctx, const char * args, size_t sz) &#123;
+        ......
+
+        //这里，就是使用loader.lua去加载我们的bootstrap
+        const char * loader = optstring(ctx, "lualoader", "./lualib/loader.lua");
+
+    int r = luaL_loadfile(L,loader);
+    if (r != LUA_OK) &#123;
+        skynet_error(ctx, "Can't load %s : %s", loader, lua_tostring(L, -1));
+        report_launcher_error(ctx);
+        return 1;
+    &#125;
+    lua_pushlstring(L, args, sz);
+    r = lua_pcall(L,1,0,1); // 这里，就又通过C语言的lua接口，调用回了lua层面。
+    if (r != LUA_OK) &#123;
+        skynet_error(ctx, "lua loader error : %s", lua_tostring(L, -1));
+        report_launcher_error(ctx);
+        return 1;
+    &#125;
+    lua_settop(L,0);
+    if (lua_getfield(L, LUA_REGISTRYINDEX, "memlimit") == LUA_TNUMBER) &#123;
+        size_t limit = lua_tointeger(L, -1);
+        l-&gt;mem_limit = limit;
+        skynet_error(ctx, "Set memory limit to %.2f M", (float)limit / (1024 * 1024));
+        lua_pushnil(L);
+        lua_setfield(L, LUA_REGISTRYINDEX, "memlimit");
+    &#125;
+    lua_pop(L, 1);
+
+    lua_gc(L, LUA_GCRESTART, 0);
+
+    return 0;
+&#125;</code></pre>
+
+<p>启动了bootstrap又怎样呢，往下看bootstrap.lua</p>
+
+<pre>
+<code class="language-Lua">skynet.start(function()
+    local sharestring = tonumber(skynet.getenv "sharestring" or 4096)
+    memory.ssexpand(sharestring)
+
+    local standalone = skynet.getenv "standalone"
+
+        // 这里又用snlua去启动了launcher.lua，启动过程和bootstrap一样
+        // 这个launcher服务先记住，待会儿就知道干嘛的了
+    local launcher = assert(skynet.launch("snlua","launcher"))
+    skynet.name(".launcher", launcher)
+
+        // 这下面还有一些是bootstrap这个前置任务做的
+        // 这里skynet.newservice是啥？
+    ......
+        skynet.newservice "service_mgr"
+    pcall(skynet.newservice,skynet.getenv "start" or "main")
+    skynet.exit()// 启动完上面的，完成了任务，这个服务就退出了
+
+end)</code></pre>
+
+<p>看到skynet.newservice，这个在skynet中，就是lua层用来启动新服务的。在skynet.lua中，可以看到，call  .launcher就是使用上面启动的launcher.lua去启动一个服务</p>
+
+<pre>
+<code class="language-Lua">function skynet.newservice(name, ...)
+        // 这个参数 "LAUNCH", "snlua", name, ...特别注意一下
+        // 最后也是用调用snlua去启动一个lua服务
+    return skynet.call(".launcher", "lua" , "LAUNCH", "snlua", name, ...)
+end</code></pre>
+
+<p>在看到launcher中的LAUNCH，在launcher.lua中</p>
+
+<pre>
+<code class="language-Lua">require "skynet.manager"    -- import manager apis
+
+local function launch_service(service, ...)
+    local param = table.concat(&#123;...&#125;, " ")
+    local inst = skynet.launch(service, param)
+    local session = skynet.context()
+    local response = skynet.response()
+    if inst then
+        services[inst] = service .. " " .. param
+        instance[inst] = response
+        launch_session[inst] = session
+    else
+        response(false)
+        return
+    end
+    return inst
+end
+
+function command.LAUNCH(_, service, ...)
+    launch_service(service, ...)
+    return NORET
+end</code></pre>
+
+<p>下面看到skyne.launch，在manager.lua</p>
+
+<pre>
+<code class="language-cpp">local c = require "skynet.core"
+
+function skynet.launch(...)
+    local addr = c.command("LAUNCH", table.concat(&#123;...&#125;," "))
+    if addr then
+        return tonumber("0x" .. string.sub(addr , 2))
+    end
+end</code></pre>
+
+<p>调用到c.command，</p>
+
+<p>这里的skynet.core是一个C语言模块，至此，我们将进入C语言实现部分，调用skynet.core.command(“LAUNCH”, “snlua ...”)。</p>
+
+<p>我们先总结一下lua部分的内容：</p>
+
+<p>newservice–&gt;skynet.call .launcher–&gt;.launcher=skynet.launch(“snlua”, “launcher”)–&gt;skynet.core.command(“LAUNCH”, “snlua ...”)</p>
+
+<p>skynet.core其实是在lua_skynet.c中定义的，其command对应于lcommand函数。 这时的参数其实都压进了lua_State中。</p>
+
+<pre>
+<code class="language-cpp">static int
+lcommand(lua_State *L) &#123;
+    struct skynet_context * context = lua_touserdata(L, lua_upvalueindex(1));
+    const char * cmd = luaL_checkstring(L,1);
+    const char * result;
+    const char * parm = NULL;
+    if (lua_gettop(L) == 2) &#123;
+        parm = luaL_checkstring(L,2);
+    &#125;
+
+        // 这里就是调用skynet_server.c
+    result = skynet_command(context, cmd, parm);
+    if (result) &#123;
+        lua_pushstring(L, result);
+        return 1;
+    &#125;
+    return 0;
+&#125;</code></pre>
+
+<p>也就最后调用到skynet_server.c中skynet_command</p>
+
+<pre>
+<code class="language-cpp">static struct command_func cmd_funcs[] = &#123;
+    &#123; "TIMEOUT", cmd_timeout &#125;,
+    &#123; "REG", cmd_reg &#125;,
+    &#123; "QUERY", cmd_query &#125;,
+    &#123; "NAME", cmd_name &#125;,
+    &#123; "EXIT", cmd_exit &#125;,
+    &#123; "KILL", cmd_kill &#125;,
+    &#123; "LAUNCH", cmd_launch &#125;, //LAUNCH对应这个
+    &#123; "GETENV", cmd_getenv &#125;,
+    &#123; "SETENV", cmd_setenv &#125;,
+    &#123; "STARTTIME", cmd_starttime &#125;,
+    &#123; "ABORT", cmd_abort &#125;,
+    &#123; "MONITOR", cmd_monitor &#125;,
+    &#123; "STAT", cmd_stat &#125;,
+    &#123; "LOGON", cmd_logon &#125;,
+    &#123; "LOGOFF", cmd_logoff &#125;,
+    &#123; "SIGNAL", cmd_signal &#125;,
+    &#123; NULL, NULL &#125;,
+&#125;;
+
+const char * 
+skynet_command(struct skynet_context * context, const char * cmd , const char * param) &#123;
+    struct command_func * method = &amp;cmd_funcs[0];
+    while(method-&gt;name) &#123;
+        if (strcmp(cmd, method-&gt;name) == 0) &#123;
+            return method-&gt;func(context, param);
+        &#125;
+        ++method;
+    &#125;
+
+    return NULL;
+&#125;</code></pre>
+
+<p>再看到cmd_launch，这里就十分熟悉了，接入回上面的bootstrap的分析</p>
+
+<pre>
+<code class="language-cpp">static const char *
+cmd_launch(struct skynet_context * context, const char * param) &#123;
+    size_t sz = strlen(param);
+    char tmp[sz+1];
+    strcpy(tmp,param);
+    char * args = tmp;
+    char * mod = strsep(&amp;args, " \t\r\n");
+    args = strsep(&amp;args, "\r\n");
+
+        // 这里这几行是不是特别熟悉
+        // 没错，就是和上面的bootstrap的启动一模一样
+        // 就是使用snlua去启动另外的服务
+    struct skynet_context * inst = skynet_context_new(mod,args);
+    if (inst == NULL) &#123;
+        return NULL;
+    &#125; else &#123;
+        id_to_hex(context-&gt;result, inst-&gt;handle);
+        return context-&gt;result;
+    &#125;
+&#125;</code></pre>
+
+<p> </p>
+
+<p>可以看到，之后我们在lua层使用的skynet.newservice都是通过launcher.lua去启动新服务器的了。</p>
+
+<p>最后bootstrap做的事情中一个重要就是，启动了launcher.lua服务，之后框架中skynet.newservice就是调用launcher去启动lua服务。</p>
+
+<p>所以叫他服务器的前置任务。之后的启动新服务之后，回调函数怎么挂钩之类的，之后在分析。</p>
+
+<p>下一篇分享bootstrap后skynet_start做了什么</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag"># 后端</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/23/Linux%20%E6%97%A0root%E6%9D%83%E9%99%90%E5%AE%89%E8%A3%85tmux/" rel="prev" title="Linux 无root权限安装tmux">
+      <i class="fa fa-chevron-left"></i> Linux 无root权限安装tmux
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/21/k8s%E4%B8%AD%EF%BC%8C%E6%80%8E%E4%B9%88%E5%9C%A8container%E4%B8%AD%E5%88%87%E6%8D%A2%E8%A7%92%E8%89%B2/" rel="next" title="k8s中，怎么在container中切换角色">
+      k8s中，怎么在container中切换角色 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Fushen Ban</p>
+  <div class="site-description" itemprop="description">正在进化</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fushen Ban</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'ee52e5fb1a0d71a12589',
+      clientSecret: '0e5c7a05b1c98f285aa97e6cdccbd884ade19328',
+      repo        : 'banfushen.github.io',
+      owner       : 'banfushen',
+      admin       : ['banfushen'],
+      id          : 'cf257551eda9f1edd0a68759dbc97ca5',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="正在进化">
+<meta property="og:type" content="website">
+<meta property="og:title" content="拼图收集者">
+<meta property="og:url" content="http://example.com/page/7/index.html">
+<meta property="og:site_name" content="拼图收集者">
+<meta property="og:description" content="正在进化">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Fushen Ban">
+<meta property="article:tag" content="linux，golang，lua，c，python，nodejs，k8s，redis">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/page/7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>拼图收集者</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">拼图收集者</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">欠的技术债，早晚都要还</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/02/10/%E6%9C%AC%E5%9C%B0%E5%A4%8D%E5%88%B6%E6%96%87%E6%9C%AC%E6%97%A0%E6%B3%95%E5%9C%A8Ubuntu%E4%B8%AD%E7%B2%98%E8%B4%B4%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fushen Ban">
+      <meta itemprop="description" content="正在进化">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拼图收集者">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/10/%E6%9C%AC%E5%9C%B0%E5%A4%8D%E5%88%B6%E6%96%87%E6%9C%AC%E6%97%A0%E6%B3%95%E5%9C%A8Ubuntu%E4%B8%AD%E7%B2%98%E8%B4%B4%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">本地复制文本无法在Ubuntu中粘贴问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-10 12:34:13" itemprop="dateCreated datePublished" datetime="2020-02-10T12:34:13+08:00">2020-02-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-16 17:11:17" itemprop="dateModified" datetime="2023-07-16T17:11:17+08:00">2023-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+<p>        在家办公，安装开发环境后无法粘贴。查询并自己实践后，解决方法如下：</p>
+
+<p><strong>        1. sudo apt-get autoremove open-vm-tools </strong></p>
+
+<p><strong>        2. sudo apt-get install open-vm-tools-desktop </strong></p>
+
+<p><strong>        3.重启虚拟机</strong></p>
+
+<p><strong>        </strong>我通过以上方法即可解决，如果执行步骤1失败，可参考下查看我的另一篇博客 ，看看是否为相同的错误</p>
+
+<p>        “<strong>ubuntu apt-get安装软件Unable to locate package...”</strong></p>
+
+<p> </p>
+
+<p> </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/02/10/ubuntu%20apt-get%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6Unable%20to%20locate%20package/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fushen Ban">
+      <meta itemprop="description" content="正在进化">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拼图收集者">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/10/ubuntu%20apt-get%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6Unable%20to%20locate%20package/" class="post-title-link" itemprop="url">ubuntu apt-get安装软件Unable to locate package...</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-10 11:09:40" itemprop="dateCreated datePublished" datetime="2020-02-10T11:09:40+08:00">2020-02-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-16 17:11:17" itemprop="dateModified" datetime="2023-07-16T17:11:17+08:00">2023-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+<p>      由于受疫情影响(希望快点好起来)，只能在家办公，再一次安装开发环境。</p>
+
+<p>      使用 <strong>apt-get install</strong>碰到以下问题</p>
+
+<p>      <img alt class="has" height="87" src="https://img-blog.csdnimg.cn/2020021011014055.png" width="583"></p>
+
+<p>     <strong> 1.sudo apt-get update 更新软件源</strong></p>
+
+<p>      <img alt class="has" height="235" src="https://img-blog.csdnimg.cn/20200210110410941.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="748"></p>
+
+<p>      如果更新成功，无报错，无警告，则执行自己的下载即可</p>
+
+<p>      但是我执行最后有警告</p>
+
+<p>      <strong>Some index files failed to download. They have been ignored, or old ones used instead.</strong></p>
+
+<p><strong>      </strong>查询资料之后发现是自己的更新源问题，需要切换更新源，执行以下步骤</p>
+
+<p>      <strong>2.搜索打开 software&amp;update</strong></p>
+
+<p>      <img alt class="has" height="234" src="https://img-blog.csdnimg.cn/20200210122059355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="749"></p>
+
+<p>      打开之后选择</p>
+
+<p>      <img alt class="has" height="446" src="https://img-blog.csdnimg.cn/20200210122414928.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="817"></p>
+
+<p>      <strong>选择other</strong></p>
+
+<p><strong>      </strong><img alt class="has" height="457" src="https://img-blog.csdnimg.cn/20200210122519647.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="831"></p>
+
+<p>      <strong>更换源之后执行 sudo apt-get update，无报错，之后再下载自己需要下载的即可</strong></p>
+
+<p>      可能是这次下载的Ubuntu的问题，导致这个问题的出现，以前没碰到过。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/12/08/%E5%85%B3%E4%BA%8E%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E7%8E%A9%E5%AE%B6%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fushen Ban">
+      <meta itemprop="description" content="正在进化">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拼图收集者">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/08/%E5%85%B3%E4%BA%8E%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E7%8E%A9%E5%AE%B6%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">关于游戏开发中玩家默认数据的一些记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-08 16:20:13" itemprop="dateCreated datePublished" datetime="2019-12-08T16:20:13+08:00">2019-12-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-16 17:11:17" itemprop="dateModified" datetime="2023-07-16T17:11:17+08:00">2023-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0-%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">笔记 随笔</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+<p>      博主最近的工作是开发游戏的任务系统。领导看了我的代码后，给我提出了一些意见。</p>
+
+<p>      任务情况大概是这样的，一个玩家登陆后，客户端会显示任务按钮，玩家点击后即可查看自己的任务。按照策划的需求，玩家目前有十几个任务。每个玩家的任务数据，都要记录在DB（数据库）中。</p>
+
+<p>      我最开始的做法是：</p>
+
+<p>      1.如果游戏开启了任务系统，当玩家登陆的时候，我会给每个任务都分配默认值。</p>
+
+<p>      2.将这些默认值都记录进db中。</p>
+
+<p>      3.在玩家点开任务图标时，客户端请求玩家的任务数据，服务器返回。</p>
+
+<p>      在偶然的情况下，虽然我得代码也能实现功能，但领导发现了我的代码会瞬间做很多的db操作，然后告诉我内容大概如下：“<strong>一般db操作就是我们服务器的瓶颈之一，可以不用一开始就给每个任务分配默认值，并记录进db。客户端请求的时候，直接返回一个默认值，当玩家参与了具体任务时，再对玩家的数据进行计算，并记录入数据库。</strong>”，</p>
+
+<p>      我之后进行思考觉得太tm有道理了。</p>
+
+<p>      <strong>1.可能有的玩家只登陆了一次，点开了任务图标，但是并且不做任务，我会在他点开图标时给他记录全部任务数据（默认值）。</strong></p>
+
+<p><strong>      2.可能有的玩家登陆了，只做了一个任务，之后便不玩了，但是我会在他点开图标时给他记录全部任务数据（默认值）。</strong></p>
+
+<p><strong>      3.一瞬间，很多玩家首次点开任务图标，会造成瞬间很多很多的db操作。</strong></p>
+
+<p>      。。。。</p>
+
+<p>      太多的理由表明这是一个很糟糕的设计。</p>
+
+<p>      我在思考后，将程序改动整理后表达大概如下：</p>
+
+<p>    <strong> 1.玩家点开任务图标，客户端请求任务数据时，如果数据库中没有记录玩家的数据，直接返回一个默认的值。例如：任务为杀1000只青蛙，直接则返回0只，并不用记录到db中</strong></p>
+
+<p><strong>     2.当玩家参与到具体的任务时，再记录到db。例如：玩家现在杀了100只青蛙，则将100记录到db中。等到玩家下次点开任务图标时，返回存贮再db中的100。</strong></p>
+
+<p><strong>     这样修改后，一开始那些默认的各种任务的默认值都不会写入db，即使有的玩家之登录一次，也点开了任务系统，也不会记录他的数据到db，一瞬间很多玩家首次点开任务系统，也不会有大量的数据瞬间要写入db。</strong></p>
+
+<p> </p>
+
+<p><strong>     </strong>做此纪录，我可能还是有一些地方设计得不够好，欢迎相互讨论。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/11/17/%E5%85%B3%E4%BA%8E%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fushen Ban">
+      <meta itemprop="description" content="正在进化">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拼图收集者">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/17/%E5%85%B3%E4%BA%8E%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">关于游戏开发数据更新的一些记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-17 13:44:46" itemprop="dateCreated datePublished" datetime="2019-11-17T13:44:46+08:00">2019-11-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-16 17:11:17" itemprop="dateModified" datetime="2023-07-16T17:11:17+08:00">2023-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0-%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">笔记 随笔</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+<p>      博主入职做游戏到现在已经是7个月的时间，框架是skynet，这段时间内，我大多写的都是游戏的活动，任务。其中这些东西都是有有效期限制的。</p>
+
+<p>      比如，活动是每日重新统计，每日任务是每天重新统计，每周任务是每周一的 00:00重新统计。那么就需要一个特定时间来reset用户的数据。</p>
+
+<p> </p>
+
+<p>      我刚开始的做法是，每天的 00:00，reset玩家的每日活动数据，每日任务数据。有一次我向我的经理请教问题的时候，他看了我的代码，对我的代码的评价大概是：<strong>你这么写也没什么错误，也没什么问题，但是可能会多出很多没必要的运算，比如一个玩家，他今天登陆了，之后三四天都没有登陆，但是你在这三四天也会去reset他的数据，如果有一个玩家，登陆了一次之后，再也不登陆了，你也会去reset他的数据。这样会多处很多没必要的db操作，玩家数量一上来，处理量就大了。</strong>我一听，觉得太tm的有道理了，经理果然不一样 = =！，牛逼，之后他对我进行了一下指点，做以下记录：</p>
+
+<p>     <strong> 1.lazy update(好像是这么叫的)，需要reset数据时，再去reset，这样可以减少很多db操作。</strong></p>
+
+<p><strong>      2.每日任务，每日活动则记录玩家的参加活动时间(任务时间)，当要更新活动或者任务时，再去判断当前时间与活动时间(任务时间)是否为同一天，如果是同一天，则不用reset，如果不是同一天，则reset玩家的活动与任务数据，并更新玩家的上次参加活动时间(任务时间)。</strong></p>
+
+<p><strong>      3.同理别的也一样，当玩家触发事件的时间如果 大于或者等于 需要更新数据的时间，则reset玩家db中的数据。</strong></p>
+
+<p><strong>     </strong></p>
+
+<p>   </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/11/17/Lua%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0os.time()%E4%B8%8Eos.data()%E7%9A%84%E5%85%B7%E4%BD%93%E8%BF%90%E7%94%A8-------%E5%A6%82%E4%BD%95%E5%BE%97%E7%9F%A5%E6%9D%A1%E4%BB%B6%E5%A4%A9%E6%95%B0%E5%90%8E%E7%9A%84%E6%97%A5%E6%9C%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fushen Ban">
+      <meta itemprop="description" content="正在进化">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拼图收集者">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/17/Lua%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0os.time()%E4%B8%8Eos.data()%E7%9A%84%E5%85%B7%E4%BD%93%E8%BF%90%E7%94%A8-------%E5%A6%82%E4%BD%95%E5%BE%97%E7%9F%A5%E6%9D%A1%E4%BB%B6%E5%A4%A9%E6%95%B0%E5%90%8E%E7%9A%84%E6%97%A5%E6%9C%9F/" class="post-title-link" itemprop="url">Lua时间函数os.time()与os.data()的具体运用-------如何得知条件天数后的日期</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-17 13:19:58" itemprop="dateCreated datePublished" datetime="2019-11-17T13:19:58+08:00">2019-11-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-16 17:11:17" itemprop="dateModified" datetime="2023-07-16T17:11:17+08:00">2023-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/lua/" itemprop="url" rel="index"><span itemprop="name">lua</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+<p>      最近的工作是要求写一个任务系统，需要在特定日期重置任务，或者在天数后重置任务。</p>
+
+<p>      这就延伸出一个问题，如何得知条件天数后的日期。</p>
+
+<p>      这个问题的难点在于，每个月的天数不一样，加上相同的天数后每个月变化后的日期怎么处理。</p>
+
+<p>      例如，我们要求40天后的日期</p>
+
+<h3>     其实lua的时间函数十分强大，可以用以下方法:    </h3>
+
+<p>     1.算出当时间，以表表示。</p>
+
+<p>     2.算出40天后的日期。</p>
+
+<p>     程序与结果如下</p>
+
+<pre class="has">
+<code class="language-Go">local now_time = os.date("*t", os.time())
+for k,v in pairs(now_time) do
+    print(k,v)
+end
+print("----------------分割--------------------------")
+
+now_time.day = now_time.day + 40
+local next_monday = os.date("*t", os.time(now_time))
+for k,v in pairs(next_monday) do
+    print(k,v)
+end</code></pre>
+
+<p>      <img alt class="has" height="347" src="https://img-blog.csdnimg.cn/20191117130731630.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="494"></p>
+
+<h3>      特别说明</h3>
+
+<p>      1.os.date创建日期表时now_time，所有的字段均在有效范围之内。(例如, now_time.daya+40之后，now_time.day = 57)</p>
+
+<p>      2.os.time传入一个修改后的日期表now_time(now_time.day = 57)时，其中的字段不需要归一化，会自动处理，得到新时间戳</p>
+
+<p>      3.得到的t2时间戳通过os.date转化为日期表，及可得到40天后的被归一化日期表。</p>
+
+<p>      4.同理也可以通过改变hour来计算5小时后，改变min来计算100分钟后，改变month来计算6个月后的日期。</p>
+
+<p>     </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/10/24/%E5%85%B3%E4%BA%8Emysql%E5%AD%98%E8%B4%AEjson%E4%B8%8Ejson%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E6%A3%80%E7%B4%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fushen Ban">
+      <meta itemprop="description" content="正在进化">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拼图收集者">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/10/24/%E5%85%B3%E4%BA%8Emysql%E5%AD%98%E8%B4%AEjson%E4%B8%8Ejson%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E6%A3%80%E7%B4%A2/" class="post-title-link" itemprop="url">关于mysql存贮json与json中数据的检索</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-10-24 15:51:12" itemprop="dateCreated datePublished" datetime="2019-10-24T15:51:12+08:00">2019-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-16 17:11:17" itemprop="dateModified" datetime="2023-07-16T17:11:17+08:00">2023-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+<p>      这两天工作，碰到一个实用的mysql存贮json问题，需要查找mysql中存贮的json中的json作此记录。</p>
+
+<p>      因为mysql是关系型数据库，所以如果想在一个key中存贮更多的数据，存贮一个json是不错的选择(支持存贮多层的json)。</p>
+
+<p>     </p>
+
+<p>       我用到的activity_conf表格中activity_config中存贮的就是json。</p>
+
+<pre class="has">
+<code class="language-sql">DROP TABLE IF EXISTS `activity_conf`;
+CREATE TABLE `activity_conf` (
+  `activity_id` char(64) COLLATE utf8mb4_general_ci NOT NULL COMMENT '活动ID',
+  `activity_config` json DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;</code></pre>
+
+<p>      我需要获取 activity_config中存贮的end_time，而end_time是两层json如下</p>
+
+<p><img alt class="has" height="461" src="https://img-blog.csdnimg.cn/20191024151315801.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="780"></p>
+
+<p>     可用以下语句</p>
+
+<pre class="has">
+<code class="language-sql">select activity_id, json_extract(activity_config, '$.end_time.conf_value') as end_time from activity_conf;</code></pre>
+
+<p>     查找结果如下</p>
+
+<p><img alt class="has" height="418" src="https://img-blog.csdnimg.cn/20191024154502932.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="959"></p>
+
+<h3>    <strong> 可以使用以下语句查找mysql中存贮的json数据：</strong></h3>
+
+<pre class="has">
+<code class="language-sql">select json_extract( key, '$.fir_json_key.sec_json_key') from table;</code></pre>
+
+<p>       打完收工</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/09/16/%E5%85%B3%E4%BA%8Emysql%E5%AD%98%E8%B4%AEjson%E4%B8%8Ejson%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E6%B1%82%E5%92%8C%E8%AE%A1%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fushen Ban">
+      <meta itemprop="description" content="正在进化">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拼图收集者">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/16/%E5%85%B3%E4%BA%8Emysql%E5%AD%98%E8%B4%AEjson%E4%B8%8Ejson%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E6%B1%82%E5%92%8C%E8%AE%A1%E7%AE%97/" class="post-title-link" itemprop="url">关于mysql存贮json与json中数据的求和计算</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-16 20:06:26" itemprop="dateCreated datePublished" datetime="2019-09-16T20:06:26+08:00">2019-09-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-16 17:11:17" itemprop="dateModified" datetime="2023-07-16T17:11:17+08:00">2023-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+<p>      mysql是关系型数据库，为了方便的记录更多的数据，现在工作中用的mysql记录得value是以json的形式记录的。</p>
+
+<p>      例如：</p>
+
+<p>      player_data表格结构是这样的：       </p>
+
+<pre class="has">
+<code class="language-sql">DROP TABLE IF EXISTS `player_data`;
+CREATE TABLE `player_data` (
+  `uid` bigint(20) NOT NULL COMMENT '用户ID',
+  `data` json NOT NULL COMMENT '游戏数据，以json形式包含',
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;</code></pre>
+
+<p>      player_data中玩家的数据是这样记录的：</p>
+
+<p>      key:uid --- value:{"data": { "user_prize": 0}</p>
+
+<p>      我需要计算所有玩家user_prize的总和，这样即可</p>
+
+<pre class="has">
+<code class="language-sql">select sum(data-&gt;"$.user_prize") from player_data where data-&gt;"$.user_prize" is not null</code></pre>
+
+<p><img alt class="has" height="186" src="https://img-blog.csdnimg.cn/2019091620004713.png" width="1078"></p>
+
+<p>       mysql中存贮json，应用十分的强大，不仅可以存贮单层的key(如上)，还可以可以存贮多层的key，关于多层key的应用之后在更新。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/09/04/lua%E4%B8%AD%E7%9A%84%E6%95%B4%E9%99%A4%E4%B8%8E%E5%8F%96%E6%95%B4%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fushen Ban">
+      <meta itemprop="description" content="正在进化">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拼图收集者">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/04/lua%E4%B8%AD%E7%9A%84%E6%95%B4%E9%99%A4%E4%B8%8E%E5%8F%96%E6%95%B4%E6%95%B0/" class="post-title-link" itemprop="url">lua中的整除与取整数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-04 20:04:18" itemprop="dateCreated datePublished" datetime="2019-09-04T20:04:18+08:00">2019-09-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-16 17:11:17" itemprop="dateModified" datetime="2023-07-16T17:11:17+08:00">2023-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/lua/" itemprop="url" rel="index"><span itemprop="name">lua</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+<p>        书籍是人类进步的阶梯，在没看lua程序设计第四版之前，并不知道lua有整除运算符，需要返回整除结果的时候，自己还得进行多余的运算，减去小数部分。前几天需求刚好需要用到整除和取一个浮点数的整数部分，运用之，作此记录。</p>
+
+<p> </p>
+
+<h1>整除</h1>
+
+<p>lua中“<strong> / </strong>”代表除法，计算结果都是存在小数的。lua5.3后还提供了一个整除的运算符“<strong> // </strong>"。</p>
+
+<p><img alt class="has" height="141" src="https://img-blog.csdnimg.cn/2019090419572156.png" width="617"></p>
+
+<h1>取整数</h1>
+
+<p>lua数学库提供了三个取整函数</p>
+
+<p><strong>math.floor()，math.ceil()和math.modf()</strong></p>
+
+<p>math.floor()向负无穷取整</p>
+
+<p><img alt class="has" height="127" src="https://img-blog.csdnimg.cn/20190904200121599.png" width="546"></p>
+
+<p>math.ceil()向正无穷取证</p>
+
+<p><img alt class="has" height="106" src="https://img-blog.csdnimg.cn/20190904200225114.png" width="393"></p>
+
+<p>modf向零取整(有两个返回值，返回整数与小数部分)</p>
+
+<p><img alt class="has" height="103" src="https://img-blog.csdnimg.cn/20190904200327478.png" width="326"></p>
+
+<p> </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/09/04/Ubuntu%E8%BF%9E%E6%8E%A5redis%E6%97%B6%E5%8F%AF%E6%8C%87%E5%AE%9Aip%EF%BC%8C%E7%AB%AF%E5%8F%A3%EF%BC%8C%E5%AF%86%E7%A0%81%E3%80%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fushen Ban">
+      <meta itemprop="description" content="正在进化">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拼图收集者">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/04/Ubuntu%E8%BF%9E%E6%8E%A5redis%E6%97%B6%E5%8F%AF%E6%8C%87%E5%AE%9Aip%EF%BC%8C%E7%AB%AF%E5%8F%A3%EF%BC%8C%E5%AF%86%E7%A0%81%E3%80%82/" class="post-title-link" itemprop="url">Ubuntu连接redis时可指定ip，端口，密码。</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-04 17:04:31" itemprop="dateCreated datePublished" datetime="2019-09-04T17:04:31+08:00">2019-09-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-16 17:11:17" itemprop="dateModified" datetime="2023-07-16T17:11:17+08:00">2023-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/redis-Linux/" itemprop="url" rel="index"><span itemprop="name">redis Linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+<p>       转做游戏服务器开发之后，基本上都在写游戏逻辑，关于redis的操作也已经有了现成的接口。今天提交了代码有点空闲时间打算学一学redis。</p>
+
+<p>       博主是按照网上的教程使用redis-cli去连接redis，但是之前本地的redis已经改过redis的默认配置文件，直接使用redis-cil发现并不能连接上。</p>
+
+<p>       <img alt class="has" height="89" src="https://img-blog.csdnimg.cn/20190904165940392.png" width="671"></p>
+
+<p>查询资料后发现可以指定ip，端口，和密码如下。</p>
+
+<p>    <strong>  redis-cli -h xxx.xxx.xxx.xxx -p xxxx -a mima   例如（redis-cli -h 127.0.0.1 -p 12345 -a zheshimima）</strong></p>
+
+<p>即可连接。作此记录。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/19/skynet%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95(%E4%B8%80)%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E4%B9%8Bwatchdog%20gate%20agent%E5%A4%8D%E6%9D%82%E9%94%99%E4%B9%B1%E5%85%B3%E7%B3%BB%E3%80%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fushen Ban">
+      <meta itemprop="description" content="正在进化">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拼图收集者">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/19/skynet%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95(%E4%B8%80)%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E4%B9%8Bwatchdog%20gate%20agent%E5%A4%8D%E6%9D%82%E9%94%99%E4%B9%B1%E5%85%B3%E7%B3%BB%E3%80%82/" class="post-title-link" itemprop="url">skynet踩坑记录(一)客户端连接之watchdog gate agent复杂错乱关系。</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-19 20:23:20" itemprop="dateCreated datePublished" datetime="2019-08-19T20:23:20+08:00">2019-08-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-16 17:11:17" itemprop="dateModified" datetime="2023-07-16T17:11:17+08:00">2023-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/skynet/" itemprop="url" rel="index"><span itemprop="name">skynet</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+<p>        笔者转行做游戏服务器开发有四个月了，现在公司用的是skynet框架，由于之前没做过服务器开发，现在还是处于边学习，边跟项目的情况。由于工作原因，网络这一块断断续续看了两个星期，一直没理解，今天再看的时候，终于懂了skynet监听网络端口的流程，也懂了，客户端是怎么连接的。果然应了那句话：<strong>欠了技术债，早晚要还的。（学习一定要专注啊！！！可以省好多时间。）</strong></p>
+
+<p><strong>       </strong>这张图是在网上找的，非常的清晰，要顺着标识看，并结合代码，就能大致了解这个过程。<img alt class="has" height="652" src="https://img-blog.csdnimg.cn/20190819195844523.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="1083"></p>
+
+<p><span style="color:#333333;">1.在main中会newservice watchdog</span><span style="color:#333333;">启动看门狗服务，</span><span style="color:#333333;">lua start conf</span><span style="color:#333333;">给看门狗发送</span><span style="color:#333333;">lua</span><span style="color:#333333;">消息</span><span style="color:#333333;">start</span><span style="color:#333333;">参数为</span><span style="color:#333333;">conf</span><span style="color:#333333;">。</span></p>
+
+<p><span style="color:#333333;">2.在watchdog服务中会，newservice gate启动网关服务(实际上是通过gateserver.start启动)，然后监听传入或者默认的端口。</span></p>
+
+<p><span style="color:#333333;">3.当有新连接接入的时候，实际上是gate server监听到的。</span></p>
+
+<p><span style="color:#333333;">4.gate server send2watchdog open，并传入参数。</span></p>
+
+<p><span style="color:#333333;">5.在watchdog server中会创建一个agent(每个连接接入，创建一个agent)，并传入相关的信息(gate，fd，watchdog)。</span></p>
+
+<p><span style="color:#333333;">6.由于有watchdog传入的信息，agent可以call2gate server forward(用于打开fd，一定要打开，链接成功不代表马上可以读到数据，需要打开这个套接字，允许fd接收数据，这样才能接受到client传入的数据)。</span></p>
+
+<p><span style="color:#333333;">7.当client send requste，首先到达gate。</span></p>
+
+<p><span style="color:#333333;">8.gate server 的</span><span style="color:#333333;">message方法中处理，转发给agent。</span></p>
+
+<p><span style="color:#333333;">9.agent处理之后，在发回给client。</span></p>
+
+<p> </p>
+
+<p><span style="color:#333333;">需要注意的是：</span></p>
+
+<p><span style="color:#333333;">1.实际上client连接到的是gate server。</span></p>
+
+<p><span style="color:#333333;">2.gate server把具体的client消息转发给agent由agent处理具体逻辑。</span></p>
+
+<p><span style="color:#333333;">3.gate 与 watchdog 与 agent是相互配合的。</span></p>
+
+<p> </p>
+
+<p><span style="color:#333333;">至于为什么要这么做，目前我也不是很清楚。。。</span></p>
+
+<p> </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Fushen Ban</p>
+  <div class="site-description" itemprop="description">正在进化</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fushen Ban</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+
+    </div>
+</body>
+</html>
