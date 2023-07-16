@@ -1,33 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Ubuntu 18.04.3 安装redis，配置端口与密码</title>
-    <url>/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/</url>
-    <content><![CDATA[<h1 id="Ubuntu-18-04-3-安装redis，配置端口与密码"><a href="#Ubuntu-18-04-3-安装redis，配置端口与密码" class="headerlink" title="Ubuntu 18.04.3 安装redis，配置端口与密码"></a>Ubuntu 18.04.3 安装redis，配置端口与密码</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><code>sudo apt-get install redis-server</code></p>
-<h2 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h2><p><code>ps -aux | grep redis</code><br><img src="/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/803319237335.png" alt></p>
-<h2 id="修改端口"><a href="#修改端口" class="headerlink" title="修改端口"></a>修改端口</h2><p><code>sudo subl /etc/redis/redis.conf</code>，改为自己想要的端口。<br><img src="/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/1589519230469.png" alt></p>
-<h2 id="重启redis"><a href="#重启redis" class="headerlink" title="重启redis"></a>重启redis</h2><p><code>sudo service redis-server restart</code><br><code>ps -aux | grep redis</code><br><img src="/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/2428019220999.png" alt></p>
-<h2 id="密码修改"><a href="#密码修改" class="headerlink" title="密码修改"></a>密码修改</h2><p>继续修改<code>/etc/redis/redis.conf</code>，找到一个  # requirepass foobared  的字段将这个字段的注释取消掉，这个字段是数据的访问密码，将foobared替换成自己想要设置的密码。<br><img src="/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/3274819223503.png" alt><br>修改后重启redis，<code>sudo service redis-server restart</code><br><img src="/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/3825619232450.png" alt></p>
-<p>sbul是我装了sublime text之后的编辑器，如果没有安装，将subl换成vi/vim即可。我自己通过以上方式，已能修改，做次记录。</p>
-]]></content>
-      <categories>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>搬迁</title>
-    <url>/2022/05/04/%E6%90%AC%E8%BF%81/</url>
-    <content><![CDATA[<h1 id="2022-5-4"><a href="#2022-5-4" class="headerlink" title="2022.5.4"></a>2022.5.4</h1><p>计划将csnd的博客全部搬到github</p>
-<ul>
-<li><a href="https://www.zhihu.com/question/23934523">搭建参考</a></li>
-<li><a href="https://www.cnblogs.com/unirithe/p/15530636.html">无法显示图片解决</a>，放入图片后要进行<code>hexo clean, hexo g, hexo s</code>即可在本地启动中看到</li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
     <title>C++多态、虚函数笔记</title>
     <url>/2019/03/17/C++%E5%A4%9A%E6%80%81%E3%80%81%E8%99%9A%E5%87%BD%E6%95%B0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<span id="more"></span>
@@ -349,21 +322,6 @@ print("你终于动手了")</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Kubernetes nodes are not ready原因查看</title>
-    <url>/2021/07/24/Kubernetes%20nodes%20are%20not%20ready%E5%8E%9F%E5%9B%A0%E6%9F%A5%E7%9C%8B/</url>
-    <content><![CDATA[<span id="more"></span>
-<p>今早收到了Prometheus的报警，4% of Kubernetes nodes are not ready。</p>
-<p>直接查看node情况即可知道原因。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">banfushen@pro:~/helm-chart/prometheus-netease/templates$ kubectl describe nodes ip-xx-x-xxx-xxx.ap-northeast-1.compute.internal</span><br><span class="line">Name:               ip-xx-x-xxx-xxx.ap-northeast-1.compute.internal</span><br><span class="line">Roles:              node</span><br><span class="line">Labels:             beta.kubernetes.io/arch=amd64</span><br><span class="line">                    beta.kubernetes.io/instance-type=c5.xlarge</span><br><span class="line">                    beta.kubernetes.io/os=linux</span><br><span class="line">                    failure-domain.beta.kubernetes.io/region=ap-northeast-1</span><br><span class="line">                    failure-domain.beta.kubernetes.io/zone=ap-northeast-1c</span><br><span class="line">                    kubernetes.io/hostname=ip-xx-x-xxx-xxx.ap-northeast-1.compute.internal</span><br><span class="line">                    kubernetes.io/role=node</span><br><span class="line">                    node-role.kubernetes.io/node=</span><br><span class="line">Annotations:        node.alpha.kubernetes.io/ttl: 0</span><br><span class="line">                    volumes.kubernetes.io/controller-managed-attach-detach: <span class="literal">true</span></span><br><span class="line">CreationTimestamp:  Sat, 24 Jul 2021 03:05:08 +0800</span><br><span class="line">Taints:             &lt;none&gt;</span><br><span class="line">Unschedulable:      <span class="literal">false</span></span><br><span class="line">Conditions:</span><br><span class="line">  Type             Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message</span><br><span class="line">  ----             ------  -----------------                 ------------------                ------                       -------</span><br><span class="line">  OutOfDisk        False   Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:08 +0800   KubeletHasSufficientDisk     kubelet has sufficient disk space available</span><br><span class="line">  MemoryPressure   False   Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:08 +0800   KubeletHasSufficientMemory   kubelet has sufficient memory available</span><br><span class="line">  DiskPressure     False   Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:08 +0800   KubeletHasNoDiskPressure     kubelet has no disk pressure</span><br><span class="line">  PIDPressure      False   Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:08 +0800   KubeletHasSufficientPID      kubelet has sufficient PID available</span><br><span class="line">  Ready            True    Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:28 +0800   KubeletReady                 kubelet is posting ready status</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>k8s</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux 创建属于自定义命令</title>
     <url>/2020/02/11/Linux%20%E5%88%9B%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%AE%9A%E4%B9%89%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<span id="more"></span>
@@ -386,6 +344,21 @@ print("你终于动手了")</code></pre>
       </categories>
       <tags>
         <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes nodes are not ready原因查看</title>
+    <url>/2021/07/24/Kubernetes%20nodes%20are%20not%20ready%E5%8E%9F%E5%9B%A0%E6%9F%A5%E7%9C%8B/</url>
+    <content><![CDATA[<span id="more"></span>
+<p>今早收到了Prometheus的报警，4% of Kubernetes nodes are not ready。</p>
+<p>直接查看node情况即可知道原因。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">banfushen@pro:~/helm-chart/prometheus-netease/templates$ kubectl describe nodes ip-xx-x-xxx-xxx.ap-northeast-1.compute.internal</span><br><span class="line">Name:               ip-xx-x-xxx-xxx.ap-northeast-1.compute.internal</span><br><span class="line">Roles:              node</span><br><span class="line">Labels:             beta.kubernetes.io/arch=amd64</span><br><span class="line">                    beta.kubernetes.io/instance-type=c5.xlarge</span><br><span class="line">                    beta.kubernetes.io/os=linux</span><br><span class="line">                    failure-domain.beta.kubernetes.io/region=ap-northeast-1</span><br><span class="line">                    failure-domain.beta.kubernetes.io/zone=ap-northeast-1c</span><br><span class="line">                    kubernetes.io/hostname=ip-xx-x-xxx-xxx.ap-northeast-1.compute.internal</span><br><span class="line">                    kubernetes.io/role=node</span><br><span class="line">                    node-role.kubernetes.io/node=</span><br><span class="line">Annotations:        node.alpha.kubernetes.io/ttl: 0</span><br><span class="line">                    volumes.kubernetes.io/controller-managed-attach-detach: <span class="literal">true</span></span><br><span class="line">CreationTimestamp:  Sat, 24 Jul 2021 03:05:08 +0800</span><br><span class="line">Taints:             &lt;none&gt;</span><br><span class="line">Unschedulable:      <span class="literal">false</span></span><br><span class="line">Conditions:</span><br><span class="line">  Type             Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message</span><br><span class="line">  ----             ------  -----------------                 ------------------                ------                       -------</span><br><span class="line">  OutOfDisk        False   Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:08 +0800   KubeletHasSufficientDisk     kubelet has sufficient disk space available</span><br><span class="line">  MemoryPressure   False   Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:08 +0800   KubeletHasSufficientMemory   kubelet has sufficient memory available</span><br><span class="line">  DiskPressure     False   Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:08 +0800   KubeletHasNoDiskPressure     kubelet has no disk pressure</span><br><span class="line">  PIDPressure      False   Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:08 +0800   KubeletHasSufficientPID      kubelet has sufficient PID available</span><br><span class="line">  Ready            True    Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:28 +0800   KubeletReady                 kubelet is posting ready status</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>k8s</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
       </tags>
   </entry>
   <entry>
@@ -559,66 +532,246 @@ end </code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Lua 表的排序，table.sort应用</title>
-    <url>/2020/02/28/Lua%20%E8%A1%A8%E7%9A%84%E6%8E%92%E5%BA%8F%EF%BC%8Ctable.sort%E5%BA%94%E7%94%A8/</url>
+    <title>Lua 协同程序</title>
+    <url>/2019/04/17/Lua%20%E5%8D%8F%E5%90%8C%E7%A8%8B%E5%BA%8F/</url>
     <content><![CDATA[<span id="more"></span>
-<p>       最近项目使用到表的排序，我使用table.sort通过表的value排序，使用key进行排序暂未研究。之前一直不是很清楚table.sort这个方法，刚好有机会记录一下。</p>
+<h3>协同程序(coroutine)简介</h3>
 
-<p>方法原型：<strong>table.sort (table, funtion(a,b))</strong></p>
+<p>Lua 协同程序(coroutine)与线程比较类似：拥有独立的堆栈，独立的局部变量，独立的指令指针，同时又与其它协同程序共享全局变量和其它大部分东西。</p>
 
-<p>两个入参：1.table-----------需要排序的table</p>
+<h3>线程和协同程序区别</h3>
 
-<p>                  2.function-------排序方法，可自定义。如果不填，则按默认排序。形式是固定的，<strong>入参a,b为排序table中的value1、value2....(这个具体不知道怎么描述)</strong></p>
+<p>1.线程可以同时运行，协同程序却需要彼此协作的运行。</p>
+
+<p>2.在任一指定时刻<strong>只有一个</strong>协同程序在运行，并且这个正在运行的协同程序只有在<strong>明确的被要求</strong>挂起的时候才会被挂起。</p>
+
+<p>协同程序有点类似与，在等待同一个线程锁的几个线程。</p>
+
+<h3>方法概览</h3>
+
+<p><table border="1" cellpadding="1" cellspacing="1"><tbody><tr><td style="width:225px;"><strong>方法</strong></td>
+            <td style="width:624px;"><strong>描述</strong></td>
+        </tr><tr><td style="width:225px;">coroutine.create(func)</td><br>            <td style="width:624px;"><br>            <p>创建coroutine，该方法只创建，如需唤醒coroutine需配合resume方法；</p></td></tr></tbody></table></p>
+<pre><code>        &lt;p&gt;入参：是协程运行的函数；&lt;/p&gt;
+
+        &lt;p&gt;返回：成功返回coroutine。&lt;/p&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;width:225px;&quot;&gt;coroutine.resume(co, val1, ...)&lt;/td&gt;
+        &lt;td style=&quot;width:624px;&quot;&gt;
+        &lt;p&gt;唤醒coroutine，和create配合使用；&lt;/p&gt;
+
+        &lt;p&gt;入参：可任意输入，但是第一个入参必须是coroutine.create()的返回值。&lt;/p&gt;
+
+        &lt;p&gt;           1.如果是第一次唤醒，其余入参作为协程运行函数的入参。多余的参数被舍弃。&lt;/p&gt;
+
+        &lt;p&gt;           2.如果是唤醒调用yield()挂起的协程，其他输入参数将作为yield()的返回值。&lt;/p&gt;
+
+        &lt;p&gt;           除第一个入参外，如果入参个数少于yield()返回值个数，则执行失败，如果多于yield()返回&lt;/p&gt;
+
+        &lt;p&gt;           值个数，则多余的参数被舍弃，执行成功；&lt;/p&gt;
+
+        &lt;p&gt;返回：成功返回true与yield()的入参。失败返回错误提示。&lt;/p&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;width:225px;&quot;&gt;coroutine.yield(val1, ...)&lt;/td&gt;
+        &lt;td style=&quot;width:624px;&quot;&gt;
+        &lt;p&gt;挂起coroutine，和resume配合使用能有很多有用的效果；&lt;/p&gt;
+
+        &lt;p&gt;入参：可以任意输入，输入的入参将作为resume的返回值；&lt;/p&gt;
+
+        &lt;p&gt;返回：resume()的入参作。&lt;/p&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;width:225px;&quot;&gt;coroutine.status(co)&lt;/td&gt;
+        &lt;td style=&quot;width:624px;&quot;&gt;
+        &lt;p&gt;获取coroutine的状态；&lt;/p&gt;
+
+        &lt;p&gt;入参：coroutine.create()的返回值；&lt;/p&gt;
+
+        &lt;p&gt;返回：返回coroutine的状态有四种：dead，suspend，running,normal。&lt;/p&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;width:225px;&quot;&gt;coroutine.wrap(func)&lt;/td&gt;
+        &lt;td style=&quot;width:624px;&quot;&gt;
+        &lt;p&gt;创建coroutine，返回一个函数，一旦你调用这个函数，就进入coroutine，和create功能重复；&lt;/p&gt;
+
+        &lt;p&gt;入参：是协程运行的函数；&lt;/p&gt;
+
+        &lt;p&gt;返回：成功返回一个函数。&lt;/p&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;width:225px;&quot;&gt;coroutine.running()&lt;/td&gt;
+        &lt;td style=&quot;width:624px;&quot;&gt;返回：正在跑的coroutine，一个coroutine就是一个线程，当使用running的时候，就是返回一个corouting的线程号&lt;/td&gt;
+    &lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;h3&gt;方法详解&lt;/h3&gt;
+</code></pre><p><strong>1. coroutine.create(func)</strong></p>
+
+<p>创建一个主体函数为 func 的新协程。 func 必须是一个 Lua 的函数。 返回这个新协程，它是一个类型为 "thread" 的对象。不会启动该协程。</p>
+
+<pre class="has">
+<code class="language-Delphi">local co = coroutine.create(
+    function()
+        print("this is a coroutine")
+        return "coroutine return"
+    end)
+print(co)
+print(coroutine.resume(co))</code></pre>
+
+<p><strong>输出：</strong></p>
+
+<p><img alt class="has" height="71" src="https://img-blog.csdnimg.cn/20190417104732777.png" width="448"></p>
 
 <p> </p>
 
-<p><strong>1.不传排序方法，采用自定义：</strong></p>
+<p><strong>2. coroutine.resume(co, val1, ...)与coroutine.yield(val1, ...)</strong></p>
 
-<p><img alt height="233" src="https://img-blog.csdnimg.cn/20200228181909324.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="820"></p>
+<p><strong>coroutine.resume(co, val1, ...)，开始或唤醒协程co的运行。</strong></p>
 
-<p>结果：</p>
+<p><ol><li>如果第一次执行一个协程时，他会从协程函数开头处开始运行。val1,...这些值会以参数形式传入主体函数。</li>
+    <li>如果该协程被挂起，resume 会重新启动它； val1, ... 这些参数会作为挂起点（yield）的返回值。</li>
+    <li>如果协程运行起来没有错误，将运行到协程挂起或协程结束， resume 返回 true 加上传给 yield 的所有值 （当协程挂起）， 或是主体函数的所有返回值（当协程中止）。</li>
+</ol></p><p> </p><p></p>
+<p><strong>coroutine.yield(val1, ...)，挂起正在调用的协程的执行。 传递给 yield 的参数都会转为 resume 的额外返回值。</strong></p>
 
-<p><img alt height="273" src="https://img-blog.csdnimg.cn/20200228181946524.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="588"></p>
+<pre class="has">
+<code class="language-Delphi">local co = coroutine.create(
+    function (input)
+        print("input : "..input)
+        local param1, param2 ,param3 = coroutine.yield("yield1", "learning1")
+        print("param1 is : " .. param1)
+        print("param2 is : " .. param2)
+        print("param3 is : " .. param3)
+        local param4, param5 = coroutine.yield("yield2", "learning2")
+    print("param4 is : " .. param4)
+    print("param5 is : " .. param5)
+        -- return 也会将结果返回给 resume
+        return "coroutine return" , 1+2
+    end)
 
-<p>可以看到，table.sort默认是使用table中存贮的 value进行从小到大的排序，有一点需要注意的是，如果table中含有number和string，使用默认的方法进行比较会报 number和string比较的错误。也有一些别的坑，使用的时候需要谨慎(默认的我用的比较少)</p>
+--第一次执行,将参数传给input
+print("first resume",coroutine.resume(co, "coroutine function"))
+print("this is main chunk")
+--第二次执行,将参数作为yield的返回值,传给param1 param2 param3
+print("second resume",coroutine.resume(co, "param1", "param2", "param3"))
+--第三次执行,将参数作为yield的返回值,传给param4 param5 多余的param6被舍弃
+print("third resume",coroutine.resume(co, "param4", "param5", "param6"))</code></pre>
 
-<p><strong>2.传入自定义的排序方法：</strong></p>
+<p><strong>输出：</strong></p>
 
-<p>例如传入的table是 :</p>
+<p><img alt class="has" height="163" src="https://img-blog.csdnimg.cn/20190417110959958.png" width="467"></p>
 
-<p><img alt height="151" src="https://img-blog.csdnimg.cn/20200228200424965.png" width="540"></p>
+<p><strong>分析：</strong></p>
 
-<p>传入的方法的格式是固定的，也就是一个</p>
+<p><ol><li>第一次调用resume，将协同程序唤醒，入参作为函数入参；</li>
+    <li>协同程序运行；</li>
+    <li>运行到yield语句；</li>
+    <li>yield挂起协同程序，第一次resume返回，,resume操作成功返回true，否则返回false；（注意：此处yield入参（yield1、learning1）是resume的返回值）</li>
+    <li>第二次调用resume，将协同程序唤醒，入参（param1, param2 ,param3）作为yield的返回值 ；</li>
+    <li>协同程序运行；</li>
+    <li>运行到yield语句；</li>
+    <li>yield挂起协同程序，第二次resume返回，,resume操作成功返回true，否则返回false；（注意：此处yield入参（yield2、learning2）是resume的返回值）</li>
+    <li>...</li>
+</ol></p><p> </p><p></p>
+<p><strong>3. coroutine.status(co)</strong></p>
 
-<p>匿名函数function(a,b)</p>
+<p>以字符串形式返回协程 co 的状态：</p>
 
-<p>               ........(你的实现)</p>
+<p><ul><li>当协程正在运行（它就是调用 status 的那个） ，返回 "running"；</li>
+    <li>如果协程调用 yield 挂起或是还没有开始运行，返回 "suspended"；</li>
+    <li>如果协程是活动的，都并不在运行（即它正在延续其它协程），返回 "normal"；</li>
+    <li>如果协程运行完主体函数或因错误停止，返回 "dead"。</li>
+</ul><pre class="has"><br><code class="language-Delphi">local co<br>local co2 = coroutine.create(function() print(“3.”..coroutine.status(co)) end)<br>co = coroutine.create(<br>    function ()<br>        print(“2.”..coroutine.status(co))<br>        coroutine.resume(co2)<br>        coroutine.yield()<br>    end)</code></pre></p>
+<p>print(“1.”..coroutine.status(co))<br>coroutine.resume(co)<br>print(“4.”..coroutine.status(co))<br>coroutine.resume(co)<br>print(“5.”..coroutine.status(co))</p>
+<p>&lt;/code&gt;&lt;/pre&gt;</p>
+<p><strong>输出：</strong></p>
 
-<p>              end</p>
+<p><img alt class="has" height="108" src="https://img-blog.csdnimg.cn/20190417111258814.png" width="453"></p>
 
-<p>匿名函数中的a,b是传入的table的2个value，table.sort每次会返回两个value传入比较函数。上例是t中的value。</p>
+<p> </p>
 
-<p>比较函数是这样的：</p>
+<p><strong>4. coroutine.wrap(func)</strong></p>
 
-<p><img alt height="83" src="https://img-blog.csdnimg.cn/20200228201556405.png" width="397"></p>
+<p>创建一个主体函数为 func 的新协程。func 必须是一个 Lua 的函数。返回一个函数，每次调用该函数都会延续该协程(不需要调用resume)。传给这个函数的参数都会作为 resume 的额外参数。和 resume 返回相同的值，只是没有第一个布尔量。</p>
 
-<p>结果为：</p>
+<pre class="has">
+<code class="language-Delphi">local wrap = coroutine.wrap(
+    function (input)
+        print("input : "..input)
+        local param1, param2 ,param3 = coroutine.yield("yield1", "learning1")
+        print("param1 is : " .. param1)
+        print("param2 is : " .. param2)
+        print("param3 is : " .. param3)
+        local param4, param5 = coroutine.yield("yield2", "learning2")
+    print("param4 is : " .. param4)
+    print("param5 is : " .. param5)
+        -- return 也会将结果返回给 resume
+        return "coroutine return" , 1+2
+    end)
 
-<p><img alt height="335" src="https://img-blog.csdnimg.cn/20200228201704536.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="657"></p>
+--第一次执行,将参数传给input
+print("first resume", wrap("coroutine function"))
+print("this is main chunk")
+--第二次执行,将参数作为yield的返回值,传给param1 param2 param3
+print("second resume", wrap("param1", "param2", "param3"))
+--第三次执行,将参数作为yield的返回值,传给param4 param5 多余的param6被舍弃
+print("third resume", wrap("param4", "param5", "param6"))</code></pre>
 
-<p>自定义的比较函数功能十分强大，但是也有一些坑。</p>
+<p><strong>输出：</strong></p>
 
-<p><strong>注意：</strong></p>
+<p><img alt class="has" height="158" src="https://img-blog.csdnimg.cn/2019041711183286.png" width="462"></p>
 
-<p><strong>1.table.sort并不稳定，当条件的两个元素相等时，它们在排序后的相对位置可能会改变(据说，我自己暂未出现，可能用的少)</strong></p>
+<p><strong>注：coroutine.wrap不是保护模式运行,如果发生任何错误，抛出这个错误。如下</strong></p>
 
-<p><strong>2.要求需要排序table中间元素不能有nil，否则会报错</strong></p>
+<pre class="has">
+<code class="language-Delphi">local wrap = coroutine.wrap(
+    function (input)
+        print("input : "..input)
+        local param1, param2 ,param3 = coroutine.yield("yield1", "learning1")
+        print("param1 is : " .. param1)
+        print("param2 is : " .. param2)
+        print("param3 is : " .. param3)
+        local param4 = coroutine.yield("yield2", "learning2")
+    print("param4 is : " .. param4)
+    print("param5 is : " .. param5)
+        -- return 也会将结果返回给 resume
+        return "coroutine return" , 1+2
+    end)
 
-<p><strong>3.当比较的两个元素相等的时候，比较函数一定要返回false，返回true会报错，table.sort会根据你返回的bool来判断两个value是否保持原来的顺序</strong></p>
+--第一次执行,将参数传给input
+print("first resume", wrap("coroutine function"))
+print("this is main chunk")
+--第二次执行,将参数作为yield的返回值,传给param1 param2 param3
+print("second resume", wrap("param1", "param2", "param3"))
+--第三次执行,将参数作为yield的返回值,传给param4 param5 多余的param6被舍弃
+print("third resume", wrap("param4", "param5", "param6"))</code></pre>
+
+<p><strong>输出：</strong></p>
+
+<p><img alt class="has" height="94" src="https://img-blog.csdnimg.cn/20190417112301475.png" width="723"></p>
+
+<p> </p>
+
+<p><strong>5. coroutine.running()</strong></p>
+
+<p>返回当前的协程,如果实在主线程,则返回nil</p>
+
+<pre class="has">
+<code class="language-Delphi">local co = coroutine.create(
+    function () 
+        print(coroutine.running()) 
+        end)
+
+print(coroutine.running())
+coroutine.resume(co)
+print(co)</code></pre>
+
+<p><strong>输出：</strong></p>
+
+<p><img alt class="has" height="71" src="https://img-blog.csdnimg.cn/20190417112015927.png" width="501"></p>
+
+<p> </p>
 ]]></content>
       <categories>
         <category>lua</category>
       </categories>
+      <tags>
+        <tag>Lua 协程（coroutine）</tag>
+      </tags>
   </entry>
   <entry>
     <title>Lua 表的弱引用</title>
@@ -745,6 +898,68 @@ end</code></pre>
       <tags>
         <tag>lua 后端</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Lua 表的排序，table.sort应用</title>
+    <url>/2020/02/28/Lua%20%E8%A1%A8%E7%9A%84%E6%8E%92%E5%BA%8F%EF%BC%8Ctable.sort%E5%BA%94%E7%94%A8/</url>
+    <content><![CDATA[<span id="more"></span>
+<p>       最近项目使用到表的排序，我使用table.sort通过表的value排序，使用key进行排序暂未研究。之前一直不是很清楚table.sort这个方法，刚好有机会记录一下。</p>
+
+<p>方法原型：<strong>table.sort (table, funtion(a,b))</strong></p>
+
+<p>两个入参：1.table-----------需要排序的table</p>
+
+<p>                  2.function-------排序方法，可自定义。如果不填，则按默认排序。形式是固定的，<strong>入参a,b为排序table中的value1、value2....(这个具体不知道怎么描述)</strong></p>
+
+<p> </p>
+
+<p><strong>1.不传排序方法，采用自定义：</strong></p>
+
+<p><img alt height="233" src="https://img-blog.csdnimg.cn/20200228181909324.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="820"></p>
+
+<p>结果：</p>
+
+<p><img alt height="273" src="https://img-blog.csdnimg.cn/20200228181946524.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="588"></p>
+
+<p>可以看到，table.sort默认是使用table中存贮的 value进行从小到大的排序，有一点需要注意的是，如果table中含有number和string，使用默认的方法进行比较会报 number和string比较的错误。也有一些别的坑，使用的时候需要谨慎(默认的我用的比较少)</p>
+
+<p><strong>2.传入自定义的排序方法：</strong></p>
+
+<p>例如传入的table是 :</p>
+
+<p><img alt height="151" src="https://img-blog.csdnimg.cn/20200228200424965.png" width="540"></p>
+
+<p>传入的方法的格式是固定的，也就是一个</p>
+
+<p>匿名函数function(a,b)</p>
+
+<p>               ........(你的实现)</p>
+
+<p>              end</p>
+
+<p>匿名函数中的a,b是传入的table的2个value，table.sort每次会返回两个value传入比较函数。上例是t中的value。</p>
+
+<p>比较函数是这样的：</p>
+
+<p><img alt height="83" src="https://img-blog.csdnimg.cn/20200228201556405.png" width="397"></p>
+
+<p>结果为：</p>
+
+<p><img alt height="335" src="https://img-blog.csdnimg.cn/20200228201704536.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="657"></p>
+
+<p>自定义的比较函数功能十分强大，但是也有一些坑。</p>
+
+<p><strong>注意：</strong></p>
+
+<p><strong>1.table.sort并不稳定，当条件的两个元素相等时，它们在排序后的相对位置可能会改变(据说，我自己暂未出现，可能用的少)</strong></p>
+
+<p><strong>2.要求需要排序table中间元素不能有nil，否则会报错</strong></p>
+
+<p><strong>3.当比较的两个元素相等的时候，比较函数一定要返回false，返回true会报错，table.sort会根据你返回的bool来判断两个value是否保持原来的顺序</strong></p>
+]]></content>
+      <categories>
+        <category>lua</category>
+      </categories>
   </entry>
   <entry>
     <title>Lua位操作</title>
@@ -1211,43 +1426,6 @@ end
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu 18.04.3 安装svn</title>
-    <url>/2019/08/12/Ubuntu%2018.04.3%20%E5%AE%89%E8%A3%85svn/</url>
-    <content><![CDATA[<span id="more"></span>
-<p>        今天早上上班后，发现电脑的机械硬盘居然崩了，原来以为这种情况只会存在传说中，没想到自己真正碰到了。由于基本上所有的资料和开发环境都是存在机械硬盘上的，一切的一切只能重来，借此机会，记录一下自己走过的路。</p>
-
-<p>      <strong> </strong>使用的是：</p>
-
-<p>       VMware:Workstation 15 Pro          <a href="https://www.7down.com/soft/310739.html">https://www.7down.com/soft/310739.html</a></p>
-
-<p>       Ubuntu:18.04.3                                <a href="https://ubuntu.com/download/desktop">https://ubuntu.com/download/desktop</a></p>
-
-<p> </p>
-
-<p>       <strong>这些下载好之后，便开始装svn：</strong></p>
-
-<p>      <strong> 1.sudo apt-get update</strong></p>
-
-<p><strong>       2.sudo apt install subversion</strong></p>
-
-<p><strong>       3.输入 svn help 查看是否安装成功 </strong></p>
-
-<p>         <img alt class="has" height="317" src="https://img-blog.csdnimg.cn/20190812150011860.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="771"></p>
-
-<p>出现这个，则表示安装成功。</p>
-
-<p>        <strong>4.安装成功后，输入svn co + 你的地址，会提示你输入svn账号与密码。</strong></p>
-
-<p> </p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>svn Ubuntu 18.04.3</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Ubuntu 18.04.3 安装redis，配置端口与密码</title>
     <url>/2019/08/12/Ubuntu%2018.04.3%20%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/</url>
     <content><![CDATA[<span id="more"></span>
@@ -1304,6 +1482,43 @@ end
       </categories>
       <tags>
         <tag>Ubuntu redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu 18.04.3 安装svn</title>
+    <url>/2019/08/12/Ubuntu%2018.04.3%20%E5%AE%89%E8%A3%85svn/</url>
+    <content><![CDATA[<span id="more"></span>
+<p>        今天早上上班后，发现电脑的机械硬盘居然崩了，原来以为这种情况只会存在传说中，没想到自己真正碰到了。由于基本上所有的资料和开发环境都是存在机械硬盘上的，一切的一切只能重来，借此机会，记录一下自己走过的路。</p>
+
+<p>      <strong> </strong>使用的是：</p>
+
+<p>       VMware:Workstation 15 Pro          <a href="https://www.7down.com/soft/310739.html">https://www.7down.com/soft/310739.html</a></p>
+
+<p>       Ubuntu:18.04.3                                <a href="https://ubuntu.com/download/desktop">https://ubuntu.com/download/desktop</a></p>
+
+<p> </p>
+
+<p>       <strong>这些下载好之后，便开始装svn：</strong></p>
+
+<p>      <strong> 1.sudo apt-get update</strong></p>
+
+<p><strong>       2.sudo apt install subversion</strong></p>
+
+<p><strong>       3.输入 svn help 查看是否安装成功 </strong></p>
+
+<p>         <img alt class="has" height="317" src="https://img-blog.csdnimg.cn/20190812150011860.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="771"></p>
+
+<p>出现这个，则表示安装成功。</p>
+
+<p>        <strong>4.安装成功后，输入svn co + 你的地址，会提示你输入svn账号与密码。</strong></p>
+
+<p> </p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>svn Ubuntu 18.04.3</tag>
       </tags>
   </entry>
   <entry>
@@ -1431,6 +1646,23 @@ local j = mylib.show('真的太多坑了')</code></pre>
       </categories>
       <tags>
         <tag>Ubuntu svn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu 18.04.3 安装redis，配置端口与密码</title>
+    <url>/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/</url>
+    <content><![CDATA[<h1 id="Ubuntu-18-04-3-安装redis，配置端口与密码"><a href="#Ubuntu-18-04-3-安装redis，配置端口与密码" class="headerlink" title="Ubuntu 18.04.3 安装redis，配置端口与密码"></a>Ubuntu 18.04.3 安装redis，配置端口与密码</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><code>sudo apt-get install redis-server</code></p>
+<h2 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h2><p><code>ps -aux | grep redis</code><br><img src="/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/803319237335.png" alt></p>
+<h2 id="修改端口"><a href="#修改端口" class="headerlink" title="修改端口"></a>修改端口</h2><p><code>sudo subl /etc/redis/redis.conf</code>，改为自己想要的端口。<br><img src="/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/1589519230469.png" alt></p>
+<h2 id="重启redis"><a href="#重启redis" class="headerlink" title="重启redis"></a>重启redis</h2><p><code>sudo service redis-server restart</code><br><code>ps -aux | grep redis</code><br><img src="/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/2428019220999.png" alt></p>
+<h2 id="密码修改"><a href="#密码修改" class="headerlink" title="密码修改"></a>密码修改</h2><p>继续修改<code>/etc/redis/redis.conf</code>，找到一个  # requirepass foobared  的字段将这个字段的注释取消掉，这个字段是数据的访问密码，将foobared替换成自己想要设置的密码。<br><img src="/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/3274819223503.png" alt><br>修改后重启redis，<code>sudo service redis-server restart</code><br><img src="/2022/05/08/Ubuntu-18-04-3-%E5%AE%89%E8%A3%85redis%EF%BC%8C%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E4%B8%8E%E5%AF%86%E7%A0%81/3825619232450.png" alt></p>
+<p>sbul是我装了sublime text之后的编辑器，如果没有安装，将subl换成vi/vim即可。我自己通过以上方式，已能修改，做次记录。</p>
+]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
       </tags>
   </entry>
   <entry>
@@ -1604,6 +1836,36 @@ func main() &#123;
       </tags>
   </entry>
   <entry>
+    <title>golang 使用time包碰到数字与时间相乘的问题</title>
+    <url>/2021/01/25/golang%20%E4%BD%BF%E7%94%A8time%E5%8C%85%E7%A2%B0%E5%88%B0%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%B6%E9%97%B4%E7%9B%B8%E4%B9%98%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<span id="more"></span>
+<p>       在项目中使用time包时，睡眠时间时想要通过配置文件获取，然而整数与时间相乘又报错。如下</p>
+
+<p><img alt height="165" src="https://img-blog.csdnimg.cn/20210125204313549.png" width="988"></p>
+
+<p>查询time包发现</p>
+
+<pre>
+<code class="language-Go">// A Duration represents the elapsed time between two instants
+// as an int64 nanosecond count. The representation limits the
+// largest representable duration to approximately 290 years.
+type Duration int64</code></pre>
+
+<p>即，其实就是一个int64的数。最后先把需要的数字进行转换，这样解决即可</p>
+
+<pre>
+<code class="language-Go">err = client.Set(ctx, key, data, time.Duration(ex)*time.Second).Err()</code></pre>
+
+<p><img alt height="173" src="https://img-blog.csdnimg.cn/20210125204542483.png" width="694"></p>
+]]></content>
+      <categories>
+        <category>golang</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>golang 实际项目中连接redis集群碰到的坑</title>
     <url>/2021/01/26/golang%20%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%BF%9E%E6%8E%A5redis%E9%9B%86%E7%BE%A4%E7%A2%B0%E5%88%B0%E7%9A%84%E5%9D%91/</url>
     <content><![CDATA[<span id="more"></span>
@@ -1643,36 +1905,6 @@ rdb := redis.NewClusterClient(&amp;redis.ClusterOptions&#123;
       </tags>
   </entry>
   <entry>
-    <title>golang 使用time包碰到数字与时间相乘的问题</title>
-    <url>/2021/01/25/golang%20%E4%BD%BF%E7%94%A8time%E5%8C%85%E7%A2%B0%E5%88%B0%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%B6%E9%97%B4%E7%9B%B8%E4%B9%98%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<span id="more"></span>
-<p>       在项目中使用time包时，睡眠时间时想要通过配置文件获取，然而整数与时间相乘又报错。如下</p>
-
-<p><img alt height="165" src="https://img-blog.csdnimg.cn/20210125204313549.png" width="988"></p>
-
-<p>查询time包发现</p>
-
-<pre>
-<code class="language-Go">// A Duration represents the elapsed time between two instants
-// as an int64 nanosecond count. The representation limits the
-// largest representable duration to approximately 290 years.
-type Duration int64</code></pre>
-
-<p>即，其实就是一个int64的数。最后先把需要的数字进行转换，这样解决即可</p>
-
-<pre>
-<code class="language-Go">err = client.Set(ctx, key, data, time.Duration(ex)*time.Second).Err()</code></pre>
-
-<p><img alt height="173" src="https://img-blog.csdnimg.cn/20210125204542483.png" width="694"></p>
-]]></content>
-      <categories>
-        <category>golang</category>
-      </categories>
-      <tags>
-        <tag>golang</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>golang如何快速查询并发写map的位置(concurrent map iteration and map write)</title>
     <url>/2021/04/15/golang%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E6%9F%A5%E8%AF%A2%E5%B9%B6%E5%8F%91%E5%86%99map%E7%9A%84%E4%BD%8D%E7%BD%AE(concurrent%20map%20iteration%20and%20map%20write)/</url>
     <content><![CDATA[<span id="more"></span>
@@ -1699,6 +1931,21 @@ type Duration int64</code></pre>
       </categories>
       <tags>
         <tag>golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>iptable为什么之后pod的probability越来越大</title>
+    <url>/2022/02/10/iptable%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B9%8B%E5%90%8Epod%E7%9A%84probability%E8%B6%8A%E6%9D%A5%E8%B6%8A%E5%A4%A7/</url>
+    <content><![CDATA[<span id="more"></span>
+<p>项目集群是使用k8s管理的，流量分发使用的是iptable，据压测反馈说负载不均衡，吓得老夫赶紧去查看，发现原来是压测同学搞错了。在查询的过程中，发现iptable规则之后的probability越来越大，记录一下原因。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@ip-10-1-34-89:/home/admin<span class="comment"># iptables -t nat -nL</span></span><br><span class="line">...</span><br><span class="line">Chain KUBE-SVC-7XZINH2IMK6FHKPK (2 references)</span><br><span class="line">target     prot opt <span class="built_in">source</span>               destination</span><br><span class="line">KUBE-SEP-TOX5PBICM2IS3QEP  all  --  0.0.0.0/0            0.0.0.0/0            statistic mode random probability 0.20000000019</span><br><span class="line">KUBE-SEP-BHWNMZ5XNYG7AESG  all  --  0.0.0.0/0            0.0.0.0/0            statistic mode random probability 0.25000000000</span><br><span class="line">KUBE-SEP-OQLKQS2OMOJTYZF6  all  --  0.0.0.0/0            0.0.0.0/0            statistic mode random probability 0.33332999982</span><br><span class="line">KUBE-SEP-EQOKMESPFMECIZJJ  all  --  0.0.0.0/0            0.0.0.0/0            statistic mode random probability 0.50000000000</span><br><span class="line">KUBE-SEP-GVLV4E5D2AGR4O5J  all  --  0.0.0.0/0            0.0.0.0/0</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>可以看到，总共5条记录，刚开始probability为0.2—-&gt;0.25—-&gt;0.33—-&gt;0.5—-无，为什么会这样。<br>因为流量进入之后，按照iptable规则转发，公共5条，所以第一条接收20%的流量。<br>剩下还有4条，下一条应该接收剩余流量的1/4，也就是25%。<br>剩下还有3条，下一条应该接收剩余流量的1/3，也就是33%。<br>……<br>最后一条因为只剩下它了，所有流量都会走这里，所以不用写probability。</p>
+]]></content>
+      <categories>
+        <category>Linux k8s</category>
+      </categories>
+      <tags>
+        <tag>负载均衡 运维</tag>
       </tags>
   </entry>
   <entry>
@@ -1731,21 +1978,6 @@ ENTRYPOINT ["python", "-m", "SimpleHTTPServer", "8080"] //修改镜像的入口<
       </categories>
       <tags>
         <tag>kubernetes 后端</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>iptable为什么之后pod的probability越来越大</title>
-    <url>/2022/02/10/iptable%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B9%8B%E5%90%8Epod%E7%9A%84probability%E8%B6%8A%E6%9D%A5%E8%B6%8A%E5%A4%A7/</url>
-    <content><![CDATA[<span id="more"></span>
-<p>项目集群是使用k8s管理的，流量分发使用的是iptable，据压测反馈说负载不均衡，吓得老夫赶紧去查看，发现原来是压测同学搞错了。在查询的过程中，发现iptable规则之后的probability越来越大，记录一下原因。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@ip-10-1-34-89:/home/admin<span class="comment"># iptables -t nat -nL</span></span><br><span class="line">...</span><br><span class="line">Chain KUBE-SVC-7XZINH2IMK6FHKPK (2 references)</span><br><span class="line">target     prot opt <span class="built_in">source</span>               destination</span><br><span class="line">KUBE-SEP-TOX5PBICM2IS3QEP  all  --  0.0.0.0/0            0.0.0.0/0            statistic mode random probability 0.20000000019</span><br><span class="line">KUBE-SEP-BHWNMZ5XNYG7AESG  all  --  0.0.0.0/0            0.0.0.0/0            statistic mode random probability 0.25000000000</span><br><span class="line">KUBE-SEP-OQLKQS2OMOJTYZF6  all  --  0.0.0.0/0            0.0.0.0/0            statistic mode random probability 0.33332999982</span><br><span class="line">KUBE-SEP-EQOKMESPFMECIZJJ  all  --  0.0.0.0/0            0.0.0.0/0            statistic mode random probability 0.50000000000</span><br><span class="line">KUBE-SEP-GVLV4E5D2AGR4O5J  all  --  0.0.0.0/0            0.0.0.0/0</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>可以看到，总共5条记录，刚开始probability为0.2—-&gt;0.25—-&gt;0.33—-&gt;0.5—-无，为什么会这样。<br>因为流量进入之后，按照iptable规则转发，公共5条，所以第一条接收20%的流量。<br>剩下还有4条，下一条应该接收剩余流量的1/4，也就是25%。<br>剩下还有3条，下一条应该接收剩余流量的1/3，也就是33%。<br>……<br>最后一条因为只剩下它了，所有流量都会走这里，所以不用写probability。</p>
-]]></content>
-      <categories>
-        <category>Linux k8s</category>
-      </categories>
-      <tags>
-        <tag>负载均衡 运维</tag>
       </tags>
   </entry>
   <entry>
@@ -1865,44 +2097,6 @@ apt install vim</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>lua中的整除与取整数</title>
-    <url>/2019/09/04/lua%E4%B8%AD%E7%9A%84%E6%95%B4%E9%99%A4%E4%B8%8E%E5%8F%96%E6%95%B4%E6%95%B0/</url>
-    <content><![CDATA[<span id="more"></span>
-<p>        书籍是人类进步的阶梯，在没看lua程序设计第四版之前，并不知道lua有整除运算符，需要返回整除结果的时候，自己还得进行多余的运算，减去小数部分。前几天需求刚好需要用到整除和取一个浮点数的整数部分，运用之，作此记录。</p>
-
-<p> </p>
-
-<h1>整除</h1>
-
-<p>lua中“<strong> / </strong>”代表除法，计算结果都是存在小数的。lua5.3后还提供了一个整除的运算符“<strong> // </strong>"。</p>
-
-<p><img alt class="has" height="141" src="https://img-blog.csdnimg.cn/2019090419572156.png" width="617"></p>
-
-<h1>取整数</h1>
-
-<p>lua数学库提供了三个取整函数</p>
-
-<p><strong>math.floor()，math.ceil()和math.modf()</strong></p>
-
-<p>math.floor()向负无穷取整</p>
-
-<p><img alt class="has" height="127" src="https://img-blog.csdnimg.cn/20190904200121599.png" width="546"></p>
-
-<p>math.ceil()向正无穷取证</p>
-
-<p><img alt class="has" height="106" src="https://img-blog.csdnimg.cn/20190904200225114.png" width="393"></p>
-
-<p>modf向零取整(有两个返回值，返回整数与小数部分)</p>
-
-<p><img alt class="has" height="103" src="https://img-blog.csdnimg.cn/20190904200327478.png" width="326"></p>
-
-<p> </p>
-]]></content>
-      <categories>
-        <category>lua</category>
-      </categories>
-  </entry>
-  <entry>
     <title>linux使用docker + docker compose 本地搭建redis cluster集群</title>
     <url>/2021/12/05/linux%E4%BD%BF%E7%94%A8docker%20+%20docker%20compose%20%E6%9C%AC%E5%9C%B0%E6%90%AD%E5%BB%BAredis%20cluster%E9%9B%86%E7%BE%A4/</url>
     <content><![CDATA[<span id="more"></span>
@@ -2011,6 +2205,44 @@ func aesCbcDecrypt(cipherText []byte) string &#123;
       </tags>
   </entry>
   <entry>
+    <title>lua中的整除与取整数</title>
+    <url>/2019/09/04/lua%E4%B8%AD%E7%9A%84%E6%95%B4%E9%99%A4%E4%B8%8E%E5%8F%96%E6%95%B4%E6%95%B0/</url>
+    <content><![CDATA[<span id="more"></span>
+<p>        书籍是人类进步的阶梯，在没看lua程序设计第四版之前，并不知道lua有整除运算符，需要返回整除结果的时候，自己还得进行多余的运算，减去小数部分。前几天需求刚好需要用到整除和取一个浮点数的整数部分，运用之，作此记录。</p>
+
+<p> </p>
+
+<h1>整除</h1>
+
+<p>lua中“<strong> / </strong>”代表除法，计算结果都是存在小数的。lua5.3后还提供了一个整除的运算符“<strong> // </strong>"。</p>
+
+<p><img alt class="has" height="141" src="https://img-blog.csdnimg.cn/2019090419572156.png" width="617"></p>
+
+<h1>取整数</h1>
+
+<p>lua数学库提供了三个取整函数</p>
+
+<p><strong>math.floor()，math.ceil()和math.modf()</strong></p>
+
+<p>math.floor()向负无穷取整</p>
+
+<p><img alt class="has" height="127" src="https://img-blog.csdnimg.cn/20190904200121599.png" width="546"></p>
+
+<p>math.ceil()向正无穷取证</p>
+
+<p><img alt class="has" height="106" src="https://img-blog.csdnimg.cn/20190904200225114.png" width="393"></p>
+
+<p>modf向零取整(有两个返回值，返回整数与小数部分)</p>
+
+<p><img alt class="has" height="103" src="https://img-blog.csdnimg.cn/20190904200327478.png" width="326"></p>
+
+<p> </p>
+]]></content>
+      <categories>
+        <category>lua</category>
+      </categories>
+  </entry>
+  <entry>
     <title>perf对多线程Profile简单流程</title>
     <url>/2022/02/13/perf%E5%AF%B9%E5%A4%9A%E7%BA%BF%E7%A8%8BProfile%E7%AE%80%E5%8D%95%E6%B5%81%E7%A8%8B/</url>
     <content><![CDATA[<span id="more"></span>
@@ -2103,6 +2335,31 @@ func aesCbcDecrypt(cipherText []byte) string &#123;
       </tags>
   </entry>
   <entry>
+    <title>redis 怎么查询一个key有多大</title>
+    <url>/2022/01/09/redis%20%E6%80%8E%E4%B9%88%E6%9F%A5%E8%AF%A2%E4%B8%80%E4%B8%AAkey%E6%9C%89%E5%A4%9A%E5%A4%A7/</url>
+    <content><![CDATA[<span id="more"></span>
+<p>在项目开发过程中，最好是能估计出自己开发的功能要使用多大的redis内存</p>
+<h1 id="使用redis自带的方法"><a href="#使用redis自带的方法" class="headerlink" title="使用redis自带的方法"></a>使用redis自带的方法</h1><h2 id="debug-object-key"><a href="#debug-object-key" class="headerlink" title="debug object key"></a>debug object key</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6006&gt; get testkey</span><br><span class="line"><span class="string">&quot;this is a test&quot;</span></span><br><span class="line">127.0.0.1:6006&gt; debug object testkey</span><br><span class="line">Value at:0x7f4f19e2b500 refcount:1 encoding:embstr serializedlength:15 lru:14327341 lru_seconds_idle:6</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Value at: 内存地址</li>
+<li>refcount: 引用次数</li>
+<li>encoding: 编码类型</li>
+<li>serializedlength: 序列化后的长度（注意这里的长度是序列化后的长度，保存为rdb文件时使用了该算法，不是真正存贮在内存的大小，不过可以用于比较）<h2 id="memory-usage"><a href="#memory-usage" class="headerlink" title="memory usage"></a>memory usage</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6006&gt; memory usage queuesSet</span><br><span class="line">(<span class="built_in">integer</span>) 1489075554</span><br></pre></td></tr></table></figure>
+返回字节数</li>
+</ul>
+<h1 id="借助工具"><a href="#借助工具" class="headerlink" title="借助工具"></a>借助工具</h1><p>借助redis rdb tools工具，需要下载rdbtools，<code>pip install rdbtools</code>。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">banfushen@banfushen:~$ redis-memory-for-key -p 6006 testkey</span><br><span class="line">Key                             testkey</span><br><span class="line">Bytes                           72</span><br><span class="line">Type                            string</span><br></pre></td></tr></table></figure>
+<h1 id="使用脚本"><a href="#使用脚本" class="headerlink" title="使用脚本"></a>使用脚本</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"></span><br><span class="line">h = <span class="string">&#x27;localhost&#x27;</span></span><br><span class="line">p = <span class="number">6006</span></span><br><span class="line"></span><br><span class="line">rd = redis.Redis(host=h, port=p, decode_responses=<span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(rd.<span class="built_in">type</span>(<span class="string">&#x27;testkey&#x27;</span>), rd.strlen(<span class="string">&#x27;testkey&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">banfushen@banfushen:~/gitlab/dbsync/test$ python redis_size.py </span><br><span class="line">(u<span class="string">&#x27;string&#x27;</span>, 14)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>redis 执行lua脚本实际项目的应用。</title>
     <url>/2020/07/13/redis%20%E6%89%A7%E8%A1%8Clua%E8%84%9A%E6%9C%AC%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%BA%94%E7%94%A8%E3%80%82/</url>
     <content><![CDATA[<span id="more"></span>
@@ -2150,22 +2407,15 @@ func aesCbcDecrypt(cipherText []byte) string &#123;
       </tags>
   </entry>
   <entry>
-    <title>redis 怎么查询一个key有多大</title>
-    <url>/2022/01/09/redis%20%E6%80%8E%E4%B9%88%E6%9F%A5%E8%AF%A2%E4%B8%80%E4%B8%AAkey%E6%9C%89%E5%A4%9A%E5%A4%A7/</url>
+    <title>redis集群数据倾斜查询过程</title>
+    <url>/2021/07/23/redis%E9%9B%86%E7%BE%A4%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<span id="more"></span>
-<p>在项目开发过程中，最好是能估计出自己开发的功能要使用多大的redis内存</p>
-<h1 id="使用redis自带的方法"><a href="#使用redis自带的方法" class="headerlink" title="使用redis自带的方法"></a>使用redis自带的方法</h1><h2 id="debug-object-key"><a href="#debug-object-key" class="headerlink" title="debug object key"></a>debug object key</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6006&gt; get testkey</span><br><span class="line"><span class="string">&quot;this is a test&quot;</span></span><br><span class="line">127.0.0.1:6006&gt; debug object testkey</span><br><span class="line">Value at:0x7f4f19e2b500 refcount:1 encoding:embstr serializedlength:15 lru:14327341 lru_seconds_idle:6</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Value at: 内存地址</li>
-<li>refcount: 引用次数</li>
-<li>encoding: 编码类型</li>
-<li>serializedlength: 序列化后的长度（注意这里的长度是序列化后的长度，保存为rdb文件时使用了该算法，不是真正存贮在内存的大小，不过可以用于比较）<h2 id="memory-usage"><a href="#memory-usage" class="headerlink" title="memory usage"></a>memory usage</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6006&gt; memory usage queuesSet</span><br><span class="line">(<span class="built_in">integer</span>) 1489075554</span><br></pre></td></tr></table></figure>
-返回字节数</li>
-</ul>
-<h1 id="借助工具"><a href="#借助工具" class="headerlink" title="借助工具"></a>借助工具</h1><p>借助redis rdb tools工具，需要下载rdbtools，<code>pip install rdbtools</code>。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">banfushen@banfushen:~$ redis-memory-for-key -p 6006 testkey</span><br><span class="line">Key                             testkey</span><br><span class="line">Bytes                           72</span><br><span class="line">Type                            string</span><br></pre></td></tr></table></figure>
-<h1 id="使用脚本"><a href="#使用脚本" class="headerlink" title="使用脚本"></a>使用脚本</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"></span><br><span class="line">h = <span class="string">&#x27;localhost&#x27;</span></span><br><span class="line">p = <span class="number">6006</span></span><br><span class="line"></span><br><span class="line">rd = redis.Redis(host=h, port=p, decode_responses=<span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(rd.<span class="built_in">type</span>(<span class="string">&#x27;testkey&#x27;</span>), rd.strlen(<span class="string">&#x27;testkey&#x27;</span>))</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">banfushen@banfushen:~/gitlab/dbsync/test$ python redis_size.py </span><br><span class="line">(u<span class="string">&#x27;string&#x27;</span>, 14)</span><br></pre></td></tr></table></figure>
+<p>项目上redis cluster数据产生了倾斜，项目是有3个节点，但第一个节点用了80%的内存，第二第三个节点基本没存数据。</p>
+<h1 id="redis-cluster存贮规律"><a href="#redis-cluster存贮规律" class="headerlink" title="redis cluster存贮规律"></a>redis cluster存贮规律</h1><p>redis 集群有16384个槽，会先对要存贮的key进行hash，将得到的结果放到对应的槽。一般会对整个key进行hash，如果key中含有{}，会对{}中的字符串进行哈希。</p>
+<h1 id="先查看集群中是否是因为key的原因造成倾斜"><a href="#先查看集群中是否是因为key的原因造成倾斜" class="headerlink" title="先查看集群中是否是因为key的原因造成倾斜"></a>先查看集群中是否是因为key的原因造成倾斜</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">redis-cli -h xxx.xxx.xxx.xxx -p xxx -c</span><br><span class="line">keys *&#123;*&#125;*</span><br></pre></td></tr></table></figure>
+<p>查看之后发现，并不是因为{}导致key全部塞到第一个节点，说明应该不是key的原因</p>
+<h1 id="查找集群中的大key"><a href="#查找集群中的大key" class="headerlink" title="查找集群中的大key"></a>查找集群中的大key</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">redis-cli -h xxx.xxx.xxx.xxx -p xxx -c --bigkeys</span><br><span class="line">redis-memory-for-key -s xxx.xxx.xxx.xxx -p xxx keyname</span><br></pre></td></tr></table></figure>
+<p>这里有一点需要注意，bigkeys命令会再各个节点中遍历，一个节点一个节点的插，所以要多执行几遍。最后发现有一个list里面有3W多个数据，查看大小，就是这个原因导致的，最后再查询代码，发现是业务代码问题，解决即可。<br>redis-memory-for-key也可能没连接到指定节点，需要多执行几次。</p>
 ]]></content>
       <categories>
         <category>redis</category>
@@ -2224,45 +2474,6 @@ func aesCbcDecrypt(cipherText []byte) string &#123;
       </tags>
   </entry>
   <entry>
-    <title>redis集群数据倾斜查询过程</title>
-    <url>/2021/07/23/redis%E9%9B%86%E7%BE%A4%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<span id="more"></span>
-<p>项目上redis cluster数据产生了倾斜，项目是有3个节点，但第一个节点用了80%的内存，第二第三个节点基本没存数据。</p>
-<h1 id="redis-cluster存贮规律"><a href="#redis-cluster存贮规律" class="headerlink" title="redis cluster存贮规律"></a>redis cluster存贮规律</h1><p>redis 集群有16384个槽，会先对要存贮的key进行hash，将得到的结果放到对应的槽。一般会对整个key进行hash，如果key中含有{}，会对{}中的字符串进行哈希。</p>
-<h1 id="先查看集群中是否是因为key的原因造成倾斜"><a href="#先查看集群中是否是因为key的原因造成倾斜" class="headerlink" title="先查看集群中是否是因为key的原因造成倾斜"></a>先查看集群中是否是因为key的原因造成倾斜</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">redis-cli -h xxx.xxx.xxx.xxx -p xxx -c</span><br><span class="line">keys *&#123;*&#125;*</span><br></pre></td></tr></table></figure>
-<p>查看之后发现，并不是因为{}导致key全部塞到第一个节点，说明应该不是key的原因</p>
-<h1 id="查找集群中的大key"><a href="#查找集群中的大key" class="headerlink" title="查找集群中的大key"></a>查找集群中的大key</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">redis-cli -h xxx.xxx.xxx.xxx -p xxx -c --bigkeys</span><br><span class="line">redis-memory-for-key -s xxx.xxx.xxx.xxx -p xxx keyname</span><br></pre></td></tr></table></figure>
-<p>这里有一点需要注意，bigkeys命令会再各个节点中遍历，一个节点一个节点的插，所以要多执行几遍。最后发现有一个list里面有3W多个数据，查看大小，就是这个原因导致的，最后再查询代码，发现是业务代码问题，解决即可。<br>redis-memory-for-key也可能没连接到指定节点，需要多执行几次。</p>
-]]></content>
-      <categories>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>skynet踩坑记录（二）agent引用代码模块。</title>
-    <url>/2019/07/28/skynet%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89agent%E5%BC%95%E7%94%A8%E4%BB%A3%E7%A0%81%E6%A8%A1%E5%9D%97%E3%80%82/</url>
-    <content><![CDATA[<span id="more"></span>
-<p>       前几天，在写游戏逻辑时，需要在不同的代码块中引用我写的逻辑模块（以下简称C模块）来对玩家数据进行修改。由于对skynet理解不够，多模块中调用自己写的逻辑时，例如：A模块调用C，B模块也调用C，我在C模块中多次对数据库进行了操作，以便可以让不同的模块能操作到同一组数据。</p>
-
-<p>       经理看了我的代码之后，对我进行了指导，作此记录：</p>
-
-<p>       1.每个agent都是一个独立的虚拟机。</p>
-
-<p>       2.在一个虚拟机中，引用同一块代码后，再次引用会直接返回，并引用到同一块代码。(A引用C，B引用C，最后会共享同一块C代码，所以在C中可以直接用变量存贮玩家数据，不用每次都从数据库中读取)</p>
-
-<p> </p>
-]]></content>
-      <categories>
-        <category>skynet</category>
-      </categories>
-      <tags>
-        <tag>skynet lua</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>skynet踩坑记录（三）skynet.call的挂起实际中可能造成的后果。</title>
     <url>/2020/09/18/skynet%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%89%EF%BC%89skynet.call%E7%9A%84%E6%8C%82%E8%B5%B7%E5%AE%9E%E9%99%85%E4%B8%AD%E5%8F%AF%E8%83%BD%E9%80%A0%E6%88%90%E7%9A%84%E5%90%8E%E6%9E%9C%E3%80%82/</url>
     <content><![CDATA[<span id="more"></span>
@@ -2295,6 +2506,27 @@ func aesCbcDecrypt(cipherText []byte) string &#123;
       </categories>
       <tags>
         <tag>后端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>skynet踩坑记录（二）agent引用代码模块。</title>
+    <url>/2019/07/28/skynet%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89agent%E5%BC%95%E7%94%A8%E4%BB%A3%E7%A0%81%E6%A8%A1%E5%9D%97%E3%80%82/</url>
+    <content><![CDATA[<span id="more"></span>
+<p>       前几天，在写游戏逻辑时，需要在不同的代码块中引用我写的逻辑模块（以下简称C模块）来对玩家数据进行修改。由于对skynet理解不够，多模块中调用自己写的逻辑时，例如：A模块调用C，B模块也调用C，我在C模块中多次对数据库进行了操作，以便可以让不同的模块能操作到同一组数据。</p>
+
+<p>       经理看了我的代码之后，对我进行了指导，作此记录：</p>
+
+<p>       1.每个agent都是一个独立的虚拟机。</p>
+
+<p>       2.在一个虚拟机中，引用同一块代码后，再次引用会直接返回，并引用到同一块代码。(A引用C，B引用C，最后会共享同一块C代码，所以在C中可以直接用变量存贮玩家数据，不用每次都从数据库中读取)</p>
+
+<p> </p>
+]]></content>
+      <categories>
+        <category>skynet</category>
+      </categories>
+      <tags>
+        <tag>skynet lua</tag>
       </tags>
   </entry>
   <entry>
@@ -3756,6 +3988,38 @@ if __name__ == "__main__":
       </tags>
   </entry>
   <entry>
+    <title>工作中第一次使用gitlab提交代码，到gitlab CICD自动部署到k8s碰到的坑，最终解决的过程。</title>
+    <url>/2021/01/26/%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%BF%E7%94%A8gitlab%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%EF%BC%8C%E5%88%B0gitlab%20CICD%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%88%B0k8s%E7%A2%B0%E5%88%B0%E7%9A%84%E5%9D%91%EF%BC%8C%E6%9C%80%E7%BB%88%E8%A7%A3%E5%86%B3%E7%9A%84%E8%BF%87%E7%A8%8B%E3%80%82/</url>
+    <content><![CDATA[<span id="more"></span>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>我不是从头开始搭建，而是在已有部分条件的情况下进行，因为是我自己一个人负责集群中，一个服务器的重写，领导就叫我在gitlab上创建仓库，然后自己提交代码。我之前是没用过gitlab的，上一家公司的工作用的是svn，所以对我来说，一切都是未知。我的项目是golang写的。<br>我的目的是：把项目打包成镜像—-&gt;上传到镜像仓库—-&gt;部署到k8s</p>
+<h1 id="先建立仓库"><a href="#先建立仓库" class="headerlink" title="先建立仓库"></a>先建立仓库</h1><p>登录gitlab—-&gt;选择New project，会到一下页面，按照自己的情况填写<br><img src="https://img-blog.csdnimg.cn/20210126195740360.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>这里有一点需要注意，当你创建完项目之后，会看到一些指引，例如叫你上传一个readme.md。我刚开始是没有权限的，所以什么也弄不了，直到你获得权限，你就可以操作仓库了。</p>
+<h1 id="获得权限后，先拉仓库到本地"><a href="#获得权限后，先拉仓库到本地" class="headerlink" title="获得权限后，先拉仓库到本地"></a>获得权限后，先拉仓库到本地</h1><p><img src="https://img-blog.csdnimg.cn/2021012620053184.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>进入你的工程，选择clone，然后选择自己想要的方式，使用git clone拉取仓库到你的本地。拉取之后，就可以用<strong>git add . —-&gt;git commit -m “xxxx” —-&gt;git push origin master</strong>提交到仓库。<br>注意：一般git 提交的时候，需要忽略一些文件，只需要在项目的目录添加一个.gitignore即可。<br>我提交完的文件大概如下，其中只需要知道两个<br><img src="https://img-blog.csdnimg.cn/20210126200949287.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> .gitignore 是用来忽略一些不需要提交的文件<br> .gitlab-ci.yaml 是用来自动部署的</p>
+<h1 id="先讲解一下gitlab-cicd"><a href="#先讲解一下gitlab-cicd" class="headerlink" title="先讲解一下gitlab cicd"></a>先讲解一下gitlab cicd</h1><p>其实这个东西不难，不知道网上为什么那么多解释，也不能写的都是不易于新手理解的一长串七七八八的概念。cicd需要两个东西：.gitlab-ci.yaml文件、gitlab-runner</p>
+<p><strong>.gitlab-ci.yaml</strong><br>其实就是描述了你需要的自动部署过程，例如，你需要打包docker镜像，然后上传，那你就需要在gitlab-ci,yaml中使用它的语法去描述这个过程即可。<br><strong>gitlab-runner</strong><br>这个东西更易于理解，不知道网上哪些什么鬼解释。你既然写了自动部署脚本，那就需要有东西去执行你写的自动部署脚本，而gitlab-runner就是这个东西（类似于一个k8s中的pod，如果不对欢迎指出）。</p>
+<p>其实这两个就是很简单的东西，反正我理解完，说出来就这么些。<strong>gitlab-runner跑的地方，就是你的gitlab项目地址，也就是说，你写的脚本就相当于在一台linux机器中，有一个你的项目的文件夹，你就在这个文件夹下写脚本（这是我自己的理解，我也的确是这样做的，如果有什么不对的地方欢迎讨论）</strong>，你完全可以在你的.gitlab-ci.yaml中写脚本用ls，pwd的命令看就知道了。</p>
+<h1 id="部署阶段"><a href="#部署阶段" class="headerlink" title="部署阶段"></a>部署阶段</h1><h2 id="编写-gitlab-ci-yaml文件"><a href="#编写-gitlab-ci-yaml文件" class="headerlink" title="编写.gitlab-ci.yaml文件"></a>编写.gitlab-ci.yaml文件</h2><p>一开始我也不知道，上来就是直接用了个golang的cicd的demo（这个东西不用在gitlab添加cicd的时候就可以选择demo），执行之后，发现其实.gitlab-ci.yaml写的就是shell脚本（当时不知道，其实这个是和gitlab-runner相关的，后面再说）。这就简单了啊。<br>关于语法，这里不做说明<br>由于是项目，这里只能贴出部分<br>整个脚本分为三个阶段</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">stages:</span><br><span class="line">    - build</span><br><span class="line">    - docker_publish</span><br><span class="line">    - deploy</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="build代码上传后，直接写脚本go-build，例如我的文件中这样写"><a href="#build代码上传后，直接写脚本go-build，例如我的文件中这样写" class="headerlink" title="build代码上传后，直接写脚本go build，例如我的文件中这样写"></a>build代码上传后，直接写脚本go build，例如我的文件中这样写</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">build:</span><br><span class="line">    image: golang:1.15.6</span><br><span class="line">    stage: build</span><br><span class="line">    before_script:</span><br><span class="line">      - <span class="built_in">mkdir</span> -p <span class="variable">$GOPATH</span>/src/$(<span class="built_in">dirname</span> <span class="variable">$REPO_NAME</span>)</span><br><span class="line">      - <span class="built_in">ln</span> -svf <span class="variable">$CI_PROJECT_DIR</span> <span class="variable">$GOPATH</span>/src/<span class="variable">$REPO_NAME</span></span><br><span class="line">      - <span class="built_in">cd</span> <span class="variable">$GOPATH</span>/src/<span class="variable">$REPO_NAME</span></span><br><span class="line">    script:</span><br><span class="line">      - <span class="built_in">pwd</span></span><br><span class="line">      - <span class="built_in">ls</span></span><br><span class="line">      - <span class="built_in">cd</span> realTimeMsg</span><br><span class="line">      - go mod download</span><br><span class="line">      - go build -o <span class="variable">$CI_PROJECT_DIR</span>/RtmServer</span><br><span class="line">    artifacts:</span><br><span class="line">      paths:</span><br><span class="line">        - RtmServer</span><br><span class="line">      expire_in: 2 mos</span><br></pre></td></tr></table></figure>
+<p>这个很好理解，主要看script，一看便知。</p>
+<h2 id="docker-pulish将输出打包成镜像，这个就需要在docker中使用docker，要使用services如下。"><a href="#docker-pulish将输出打包成镜像，这个就需要在docker中使用docker，要使用services如下。" class="headerlink" title="docker_pulish将输出打包成镜像，这个就需要在docker中使用docker，要使用services如下。"></a>docker_pulish将输出打包成镜像，这个就需要在docker中使用docker，要使用services如下。</h2><p>这个构建也不难，在gitlab中上传你写好的Dockerfile后直接build即可。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker_publish:</span><br><span class="line">  image: docker:latest</span><br><span class="line">  services:</span><br><span class="line">    - docker:dind</span><br><span class="line">  script:</span><br><span class="line">   	...</span><br><span class="line">    - docker build -f Dockerfile --pull -t xxx</span><br><span class="line">    - docker image <span class="built_in">ls</span> </span><br><span class="line">    - docker push xxx</span><br></pre></td></tr></table></figure><br>这里需要注意一些，在.gitlab-ci.yaml文件中，需要定义的环境变量可以在setting—-&gt;cicd里面设置<br><img src="https://img-blog.csdnimg.cn/2021012620364154.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="deploy部署，我碰到的最大的问题就在这里"><a href="#deploy部署，我碰到的最大的问题就在这里" class="headerlink" title="deploy部署，我碰到的最大的问题就在这里"></a>deploy部署，我碰到的最大的问题就在这里</h2><p>我的部署脚本中，就是无法dev的k8s中部署，我使用脚本kubectl cluster-info，发现我的脚本跑在的地方根本不是我的dev k8s，所以肯定无法部署。这种情况下我就去查了。<br><img src="https://img-blog.csdnimg.cn/20210126210436704.png" alt="在这里插入图片描述"><br>出现这种问题的原因是：gitlab-runner没有在我想要的环境中跑。所以无法关联到集群。<br>我在项目的部署的时候，也没有创建gitlab-runner，但是我的部署脚本的确跑起来了。<br>经过查询，<strong>原来是我参与的项目中有默认的共享的gitlab-runner</strong>，直接用这个跑了。</p>
+<p>我首先尝试了把我的项目添加到k8s，也就是这个按钮，原来是add，我添加之后变成这个<br><img src="https://img-blog.csdnimg.cn/20210126204205559.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>添加方法在这里：<a href="https://segmentfault.com/a/1190000020947651">https://segmentfault.com/a/1190000020947651</a>，我是参考了这个文章。<br>但是并没有解决我的问题。</p>
+<p>最后我在dev 的k8s环境中，给我的项目注册了一个gitlab-runner，我的开发环境已经存在gitlab-runner，如果你的不存在，就安装一下。<br>之后这样搞先打开setting—-&gt;cicd—-&gt;runners<br><img src="https://img-blog.csdnimg.cn/20210126204710663.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>然后使用gitlab-runner register<br><img src="https://img-blog.csdnimg.cn/20210126204942387.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>输入之前runner那张图的url<br>输入之前runner那张图的token<br>出入描述<br>输入tag，这个很重要，.gitlab-ci.yaml脚本通过tag关联runner<br>输入选择的执行方式，我选了shell</p>
+<p>注册完之后会发现setting—-&gt;cicd—-&gt;runners多了一个runner<br><img src="https://img-blog.csdnimg.cn/20210126205400881.png" alt="在这里插入图片描述"><br>到这里还是不能用，就算在.gitlab-ci.yaml文件中关联了这个tag。这样关联，加上tags即可</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  image: dtzar/helm-kubectl:2.9.1</span><br><span class="line">  stage: deploy</span><br><span class="line">  tags:</span><br><span class="line">    - goRtm</span><br></pre></td></tr></table></figure>
+<p>因为这个runner并不能跑起来，如果能够运行，则是前面是绿色的，tag改过了，和上图对应的不一样，说明一下。<br><img src="https://img-blog.csdnimg.cn/20210126205703316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>还要调用gitlab-runner run，调用之后就变成绿色的就可以用了<br><img src="https://img-blog.csdnimg.cn/20210126205935238.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2021012621003097.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>做完这些，我就可以在提交代码后，自动部署到我想要的k8s中了。</p>
+<p>因为文章涉及到公司项目，很多东西不能交代清楚。大概只能这样写了。</p>
+]]></content>
+      <categories>
+        <category>k8s</category>
+      </categories>
+      <tags>
+        <tag>gitlab ci/cd</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>怎么在linux中安装golang, 不需要在windows下载好包</title>
     <url>/2021/01/21/%E6%80%8E%E4%B9%88%E5%9C%A8linux%E4%B8%AD%E5%AE%89%E8%A3%85golang,%20%E4%B8%8D%E9%9C%80%E8%A6%81%E5%9C%A8windows%E4%B8%8B%E8%BD%BD%E5%A5%BD%E5%8C%85/</url>
     <content><![CDATA[<span id="more"></span>
@@ -3809,36 +4073,14 @@ export GOROOT=/usr/local/go
       </tags>
   </entry>
   <entry>
-    <title>工作中第一次使用gitlab提交代码，到gitlab CICD自动部署到k8s碰到的坑，最终解决的过程。</title>
-    <url>/2021/01/26/%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%BF%E7%94%A8gitlab%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%EF%BC%8C%E5%88%B0gitlab%20CICD%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%88%B0k8s%E7%A2%B0%E5%88%B0%E7%9A%84%E5%9D%91%EF%BC%8C%E6%9C%80%E7%BB%88%E8%A7%A3%E5%86%B3%E7%9A%84%E8%BF%87%E7%A8%8B%E3%80%82/</url>
-    <content><![CDATA[<span id="more"></span>
-<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>我不是从头开始搭建，而是在已有部分条件的情况下进行，因为是我自己一个人负责集群中，一个服务器的重写，领导就叫我在gitlab上创建仓库，然后自己提交代码。我之前是没用过gitlab的，上一家公司的工作用的是svn，所以对我来说，一切都是未知。我的项目是golang写的。<br>我的目的是：把项目打包成镜像—-&gt;上传到镜像仓库—-&gt;部署到k8s</p>
-<h1 id="先建立仓库"><a href="#先建立仓库" class="headerlink" title="先建立仓库"></a>先建立仓库</h1><p>登录gitlab—-&gt;选择New project，会到一下页面，按照自己的情况填写<br><img src="https://img-blog.csdnimg.cn/20210126195740360.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>这里有一点需要注意，当你创建完项目之后，会看到一些指引，例如叫你上传一个readme.md。我刚开始是没有权限的，所以什么也弄不了，直到你获得权限，你就可以操作仓库了。</p>
-<h1 id="获得权限后，先拉仓库到本地"><a href="#获得权限后，先拉仓库到本地" class="headerlink" title="获得权限后，先拉仓库到本地"></a>获得权限后，先拉仓库到本地</h1><p><img src="https://img-blog.csdnimg.cn/2021012620053184.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>进入你的工程，选择clone，然后选择自己想要的方式，使用git clone拉取仓库到你的本地。拉取之后，就可以用<strong>git add . —-&gt;git commit -m “xxxx” —-&gt;git push origin master</strong>提交到仓库。<br>注意：一般git 提交的时候，需要忽略一些文件，只需要在项目的目录添加一个.gitignore即可。<br>我提交完的文件大概如下，其中只需要知道两个<br><img src="https://img-blog.csdnimg.cn/20210126200949287.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> .gitignore 是用来忽略一些不需要提交的文件<br> .gitlab-ci.yaml 是用来自动部署的</p>
-<h1 id="先讲解一下gitlab-cicd"><a href="#先讲解一下gitlab-cicd" class="headerlink" title="先讲解一下gitlab cicd"></a>先讲解一下gitlab cicd</h1><p>其实这个东西不难，不知道网上为什么那么多解释，也不能写的都是不易于新手理解的一长串七七八八的概念。cicd需要两个东西：.gitlab-ci.yaml文件、gitlab-runner</p>
-<p><strong>.gitlab-ci.yaml</strong><br>其实就是描述了你需要的自动部署过程，例如，你需要打包docker镜像，然后上传，那你就需要在gitlab-ci,yaml中使用它的语法去描述这个过程即可。<br><strong>gitlab-runner</strong><br>这个东西更易于理解，不知道网上哪些什么鬼解释。你既然写了自动部署脚本，那就需要有东西去执行你写的自动部署脚本，而gitlab-runner就是这个东西（类似于一个k8s中的pod，如果不对欢迎指出）。</p>
-<p>其实这两个就是很简单的东西，反正我理解完，说出来就这么些。<strong>gitlab-runner跑的地方，就是你的gitlab项目地址，也就是说，你写的脚本就相当于在一台linux机器中，有一个你的项目的文件夹，你就在这个文件夹下写脚本（这是我自己的理解，我也的确是这样做的，如果有什么不对的地方欢迎讨论）</strong>，你完全可以在你的.gitlab-ci.yaml中写脚本用ls，pwd的命令看就知道了。</p>
-<h1 id="部署阶段"><a href="#部署阶段" class="headerlink" title="部署阶段"></a>部署阶段</h1><h2 id="编写-gitlab-ci-yaml文件"><a href="#编写-gitlab-ci-yaml文件" class="headerlink" title="编写.gitlab-ci.yaml文件"></a>编写.gitlab-ci.yaml文件</h2><p>一开始我也不知道，上来就是直接用了个golang的cicd的demo（这个东西不用在gitlab添加cicd的时候就可以选择demo），执行之后，发现其实.gitlab-ci.yaml写的就是shell脚本（当时不知道，其实这个是和gitlab-runner相关的，后面再说）。这就简单了啊。<br>关于语法，这里不做说明<br>由于是项目，这里只能贴出部分<br>整个脚本分为三个阶段</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">stages:</span><br><span class="line">    - build</span><br><span class="line">    - docker_publish</span><br><span class="line">    - deploy</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="build代码上传后，直接写脚本go-build，例如我的文件中这样写"><a href="#build代码上传后，直接写脚本go-build，例如我的文件中这样写" class="headerlink" title="build代码上传后，直接写脚本go build，例如我的文件中这样写"></a>build代码上传后，直接写脚本go build，例如我的文件中这样写</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">build:</span><br><span class="line">    image: golang:1.15.6</span><br><span class="line">    stage: build</span><br><span class="line">    before_script:</span><br><span class="line">      - <span class="built_in">mkdir</span> -p <span class="variable">$GOPATH</span>/src/$(<span class="built_in">dirname</span> <span class="variable">$REPO_NAME</span>)</span><br><span class="line">      - <span class="built_in">ln</span> -svf <span class="variable">$CI_PROJECT_DIR</span> <span class="variable">$GOPATH</span>/src/<span class="variable">$REPO_NAME</span></span><br><span class="line">      - <span class="built_in">cd</span> <span class="variable">$GOPATH</span>/src/<span class="variable">$REPO_NAME</span></span><br><span class="line">    script:</span><br><span class="line">      - <span class="built_in">pwd</span></span><br><span class="line">      - <span class="built_in">ls</span></span><br><span class="line">      - <span class="built_in">cd</span> realTimeMsg</span><br><span class="line">      - go mod download</span><br><span class="line">      - go build -o <span class="variable">$CI_PROJECT_DIR</span>/RtmServer</span><br><span class="line">    artifacts:</span><br><span class="line">      paths:</span><br><span class="line">        - RtmServer</span><br><span class="line">      expire_in: 2 mos</span><br></pre></td></tr></table></figure>
-<p>这个很好理解，主要看script，一看便知。</p>
-<h2 id="docker-pulish将输出打包成镜像，这个就需要在docker中使用docker，要使用services如下。"><a href="#docker-pulish将输出打包成镜像，这个就需要在docker中使用docker，要使用services如下。" class="headerlink" title="docker_pulish将输出打包成镜像，这个就需要在docker中使用docker，要使用services如下。"></a>docker_pulish将输出打包成镜像，这个就需要在docker中使用docker，要使用services如下。</h2><p>这个构建也不难，在gitlab中上传你写好的Dockerfile后直接build即可。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker_publish:</span><br><span class="line">  image: docker:latest</span><br><span class="line">  services:</span><br><span class="line">    - docker:dind</span><br><span class="line">  script:</span><br><span class="line">   	...</span><br><span class="line">    - docker build -f Dockerfile --pull -t xxx</span><br><span class="line">    - docker image <span class="built_in">ls</span> </span><br><span class="line">    - docker push xxx</span><br></pre></td></tr></table></figure><br>这里需要注意一些，在.gitlab-ci.yaml文件中，需要定义的环境变量可以在setting—-&gt;cicd里面设置<br><img src="https://img-blog.csdnimg.cn/2021012620364154.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="deploy部署，我碰到的最大的问题就在这里"><a href="#deploy部署，我碰到的最大的问题就在这里" class="headerlink" title="deploy部署，我碰到的最大的问题就在这里"></a>deploy部署，我碰到的最大的问题就在这里</h2><p>我的部署脚本中，就是无法dev的k8s中部署，我使用脚本kubectl cluster-info，发现我的脚本跑在的地方根本不是我的dev k8s，所以肯定无法部署。这种情况下我就去查了。<br><img src="https://img-blog.csdnimg.cn/20210126210436704.png" alt="在这里插入图片描述"><br>出现这种问题的原因是：gitlab-runner没有在我想要的环境中跑。所以无法关联到集群。<br>我在项目的部署的时候，也没有创建gitlab-runner，但是我的部署脚本的确跑起来了。<br>经过查询，<strong>原来是我参与的项目中有默认的共享的gitlab-runner</strong>，直接用这个跑了。</p>
-<p>我首先尝试了把我的项目添加到k8s，也就是这个按钮，原来是add，我添加之后变成这个<br><img src="https://img-blog.csdnimg.cn/20210126204205559.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>添加方法在这里：<a href="https://segmentfault.com/a/1190000020947651">https://segmentfault.com/a/1190000020947651</a>，我是参考了这个文章。<br>但是并没有解决我的问题。</p>
-<p>最后我在dev 的k8s环境中，给我的项目注册了一个gitlab-runner，我的开发环境已经存在gitlab-runner，如果你的不存在，就安装一下。<br>之后这样搞先打开setting—-&gt;cicd—-&gt;runners<br><img src="https://img-blog.csdnimg.cn/20210126204710663.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>然后使用gitlab-runner register<br><img src="https://img-blog.csdnimg.cn/20210126204942387.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>输入之前runner那张图的url<br>输入之前runner那张图的token<br>出入描述<br>输入tag，这个很重要，.gitlab-ci.yaml脚本通过tag关联runner<br>输入选择的执行方式，我选了shell</p>
-<p>注册完之后会发现setting—-&gt;cicd—-&gt;runners多了一个runner<br><img src="https://img-blog.csdnimg.cn/20210126205400881.png" alt="在这里插入图片描述"><br>到这里还是不能用，就算在.gitlab-ci.yaml文件中关联了这个tag。这样关联，加上tags即可</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  image: dtzar/helm-kubectl:2.9.1</span><br><span class="line">  stage: deploy</span><br><span class="line">  tags:</span><br><span class="line">    - goRtm</span><br></pre></td></tr></table></figure>
-<p>因为这个runner并不能跑起来，如果能够运行，则是前面是绿色的，tag改过了，和上图对应的不一样，说明一下。<br><img src="https://img-blog.csdnimg.cn/20210126205703316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>还要调用gitlab-runner run，调用之后就变成绿色的就可以用了<br><img src="https://img-blog.csdnimg.cn/20210126205935238.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2021012621003097.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>做完这些，我就可以在提交代码后，自动部署到我想要的k8s中了。</p>
-<p>因为文章涉及到公司项目，很多东西不能交代清楚。大概只能这样写了。</p>
+    <title>搬迁</title>
+    <url>/2022/05/04/%E6%90%AC%E8%BF%81/</url>
+    <content><![CDATA[<h1 id="2022-5-4"><a href="#2022-5-4" class="headerlink" title="2022.5.4"></a>2022.5.4</h1><p>计划将csnd的博客全部搬到github</p>
+<ul>
+<li><a href="https://www.zhihu.com/question/23934523">搭建参考</a></li>
+<li><a href="https://www.cnblogs.com/unirithe/p/15530636.html">无法显示图片解决</a>，放入图片后要进行<code>hexo clean, hexo g, hexo s</code>即可在本地启动中看到</li>
+</ul>
 ]]></content>
-      <categories>
-        <category>k8s</category>
-      </categories>
-      <tags>
-        <tag>gitlab ci/cd</tag>
-      </tags>
   </entry>
   <entry>
     <title>最近碰到的一些服务器问题的总结</title>
@@ -3984,26 +4226,6 @@ export GOROOT=/usr/local/go
       </tags>
   </entry>
   <entry>
-    <title>第一次服务器上限需要资源评估</title>
-    <url>/2021/08/05/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%99%90%E9%9C%80%E8%A6%81%E8%B5%84%E6%BA%90%E8%AF%84%E4%BC%B0/</url>
-    <content><![CDATA[<span id="more"></span>
-<p>本是小辣鸡。以前也只是写业务代码，全靠领导给机会让我自己负责一个服务器的编写，部署，上线需要的资源评估。记录第一次做上线资源评估的过程。</p>
-<p>项目背景是，搭在云服务商上的集群，集群管理是kubernetes。首次内测目标5000个用户。</p>
-<h1 id="主要如下"><a href="#主要如下" class="headerlink" title="主要如下"></a>主要如下</h1><p>1.服务器需要多少内存<br>2.服务器需要多少cpu<br>3.了解购买的云服务参数<br>4.修改kubernetes部署文件</p>
-<p>首先需要做压测，我写的服务器是用golang写的用于聊天服务器，所以在世界聊天的时候，压力就会非常大。压力也是要测试这里，看看需要消耗多少性能。</p>
-<h1 id="服务器需要多少内存"><a href="#服务器需要多少内存" class="headerlink" title="服务器需要多少内存"></a>服务器需要多少内存</h1><p>我使用了golang的profile进行分析，登录了5000玩家后，在profile中，查看到内存情况总共消耗171000000字节左右。计算出一个玩家大约使用32KB的内存。服务器本身启动不占多少内存，最后评估需要256m的内存。</p>
-<h1 id="服务器需要多少cpu"><a href="#服务器需要多少cpu" class="headerlink" title="服务器需要多少cpu"></a>服务器需要多少cpu</h1><p>在压测的时候，已经看了cpu的profile，看上去一切正常。剩下就是发消息。我启动服务器的机器是16核，2.2GHz的服务器。在每秒200人同时发消息到世界频道，5000人接收的情况下。使用top命令查看最高的时候，跑了586%的cpu，按6个计算，就是6*2200mhz = 13200mhz。也就是说在最极端的情况下，全部人都不玩游戏，只在大厅聊天，每秒200个人发，按照计算最多需要13200mhz的cpu。</p>
-<h1 id="了解购买的云服务参数"><a href="#了解购买的云服务参数" class="headerlink" title="了解购买的云服务参数"></a>了解购买的云服务参数</h1><p>集群中总共有8台机器，每台8G内存，4个cpu，每个cpu是3.4Ghz约等于3400mhz，4个cpu大约13600mhz。</p>
-<h1 id="修改kubernetes部署文件"><a href="#修改kubernetes部署文件" class="headerlink" title="修改kubernetes部署文件"></a>修改kubernetes部署文件</h1><p>因为要充分利用机器性能，所以不能够只部署一个pod，我的服务器之部署一个pod的话，会直接压干一台云服务器的cpu，导致这台云服务器只剩下400mhz的cpu，可能无法起别的pod，上面的内存也将被浪费掉。所以必须起多个pod。最终决定用以下配置，每个pod请求1000M内存，1整个核心的cpu，最大只给2000M内存和两个核心的cpu。<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">requests:</span></span><br><span class="line">    <span class="attr">memory:</span> <span class="string">1000Mi</span></span><br><span class="line">    <span class="attr">cpu:</span> <span class="string">1000m</span></span><br><span class="line"><span class="attr">limits:</span></span><br><span class="line">    <span class="attr">memory:</span> <span class="string">2000Mi</span></span><br><span class="line">    <span class="attr">cpu:</span> <span class="string">2000m</span></span><br></pre></td></tr></table></figure><br>这样，一台云机器最少还有6G内存，和3个cpu可以分配给别的pod，不会造成资源浪费。另外，等到真正上线的时候，如果人太多了，资源不够用也是不怕的。kubernetes还有自动扩容。</p>
-]]></content>
-      <categories>
-        <category>笔记 k8s</category>
-      </categories>
-      <tags>
-        <tag>kubernetes 后端</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>游戏服务器是干什么的（大话、浅析）</title>
     <url>/2019/06/22/%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%98%AF%E5%B9%B2%E4%BB%80%E4%B9%88%E7%9A%84%EF%BC%88%E5%A4%A7%E8%AF%9D%E3%80%81%E6%B5%85%E6%9E%90%EF%BC%89/</url>
     <content><![CDATA[<span id="more"></span>
@@ -4097,245 +4319,23 @@ export GOROOT=/usr/local/go
       </tags>
   </entry>
   <entry>
-    <title>Lua 协同程序</title>
-    <url>/2019/04/17/Lua%20%E5%8D%8F%E5%90%8C%E7%A8%8B%E5%BA%8F/</url>
+    <title>第一次服务器上限需要资源评估</title>
+    <url>/2021/08/05/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%99%90%E9%9C%80%E8%A6%81%E8%B5%84%E6%BA%90%E8%AF%84%E4%BC%B0/</url>
     <content><![CDATA[<span id="more"></span>
-<h3>协同程序(coroutine)简介</h3>
-
-<p>Lua 协同程序(coroutine)与线程比较类似：拥有独立的堆栈，独立的局部变量，独立的指令指针，同时又与其它协同程序共享全局变量和其它大部分东西。</p>
-
-<h3>线程和协同程序区别</h3>
-
-<p>1.线程可以同时运行，协同程序却需要彼此协作的运行。</p>
-
-<p>2.在任一指定时刻<strong>只有一个</strong>协同程序在运行，并且这个正在运行的协同程序只有在<strong>明确的被要求</strong>挂起的时候才会被挂起。</p>
-
-<p>协同程序有点类似与，在等待同一个线程锁的几个线程。</p>
-
-<h3>方法概览</h3>
-
-<p><table border="1" cellpadding="1" cellspacing="1"><tbody><tr><td style="width:225px;"><strong>方法</strong></td>
-            <td style="width:624px;"><strong>描述</strong></td>
-        </tr><tr><td style="width:225px;">coroutine.create(func)</td><br>            <td style="width:624px;"><br>            <p>创建coroutine，该方法只创建，如需唤醒coroutine需配合resume方法；</p></td></tr></tbody></table></p>
-<pre><code>        &lt;p&gt;入参：是协程运行的函数；&lt;/p&gt;
-
-        &lt;p&gt;返回：成功返回coroutine。&lt;/p&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;width:225px;&quot;&gt;coroutine.resume(co, val1, ...)&lt;/td&gt;
-        &lt;td style=&quot;width:624px;&quot;&gt;
-        &lt;p&gt;唤醒coroutine，和create配合使用；&lt;/p&gt;
-
-        &lt;p&gt;入参：可任意输入，但是第一个入参必须是coroutine.create()的返回值。&lt;/p&gt;
-
-        &lt;p&gt;           1.如果是第一次唤醒，其余入参作为协程运行函数的入参。多余的参数被舍弃。&lt;/p&gt;
-
-        &lt;p&gt;           2.如果是唤醒调用yield()挂起的协程，其他输入参数将作为yield()的返回值。&lt;/p&gt;
-
-        &lt;p&gt;           除第一个入参外，如果入参个数少于yield()返回值个数，则执行失败，如果多于yield()返回&lt;/p&gt;
-
-        &lt;p&gt;           值个数，则多余的参数被舍弃，执行成功；&lt;/p&gt;
-
-        &lt;p&gt;返回：成功返回true与yield()的入参。失败返回错误提示。&lt;/p&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;width:225px;&quot;&gt;coroutine.yield(val1, ...)&lt;/td&gt;
-        &lt;td style=&quot;width:624px;&quot;&gt;
-        &lt;p&gt;挂起coroutine，和resume配合使用能有很多有用的效果；&lt;/p&gt;
-
-        &lt;p&gt;入参：可以任意输入，输入的入参将作为resume的返回值；&lt;/p&gt;
-
-        &lt;p&gt;返回：resume()的入参作。&lt;/p&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;width:225px;&quot;&gt;coroutine.status(co)&lt;/td&gt;
-        &lt;td style=&quot;width:624px;&quot;&gt;
-        &lt;p&gt;获取coroutine的状态；&lt;/p&gt;
-
-        &lt;p&gt;入参：coroutine.create()的返回值；&lt;/p&gt;
-
-        &lt;p&gt;返回：返回coroutine的状态有四种：dead，suspend，running,normal。&lt;/p&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;width:225px;&quot;&gt;coroutine.wrap(func)&lt;/td&gt;
-        &lt;td style=&quot;width:624px;&quot;&gt;
-        &lt;p&gt;创建coroutine，返回一个函数，一旦你调用这个函数，就进入coroutine，和create功能重复；&lt;/p&gt;
-
-        &lt;p&gt;入参：是协程运行的函数；&lt;/p&gt;
-
-        &lt;p&gt;返回：成功返回一个函数。&lt;/p&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;width:225px;&quot;&gt;coroutine.running()&lt;/td&gt;
-        &lt;td style=&quot;width:624px;&quot;&gt;返回：正在跑的coroutine，一个coroutine就是一个线程，当使用running的时候，就是返回一个corouting的线程号&lt;/td&gt;
-    &lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;h3&gt;方法详解&lt;/h3&gt;
-</code></pre><p><strong>1. coroutine.create(func)</strong></p>
-
-<p>创建一个主体函数为 func 的新协程。 func 必须是一个 Lua 的函数。 返回这个新协程，它是一个类型为 "thread" 的对象。不会启动该协程。</p>
-
-<pre class="has">
-<code class="language-Delphi">local co = coroutine.create(
-    function()
-        print("this is a coroutine")
-        return "coroutine return"
-    end)
-print(co)
-print(coroutine.resume(co))</code></pre>
-
-<p><strong>输出：</strong></p>
-
-<p><img alt class="has" height="71" src="https://img-blog.csdnimg.cn/20190417104732777.png" width="448"></p>
-
-<p> </p>
-
-<p><strong>2. coroutine.resume(co, val1, ...)与coroutine.yield(val1, ...)</strong></p>
-
-<p><strong>coroutine.resume(co, val1, ...)，开始或唤醒协程co的运行。</strong></p>
-
-<p><ol><li>如果第一次执行一个协程时，他会从协程函数开头处开始运行。val1,...这些值会以参数形式传入主体函数。</li>
-    <li>如果该协程被挂起，resume 会重新启动它； val1, ... 这些参数会作为挂起点（yield）的返回值。</li>
-    <li>如果协程运行起来没有错误，将运行到协程挂起或协程结束， resume 返回 true 加上传给 yield 的所有值 （当协程挂起）， 或是主体函数的所有返回值（当协程中止）。</li>
-</ol></p><p> </p><p></p>
-<p><strong>coroutine.yield(val1, ...)，挂起正在调用的协程的执行。 传递给 yield 的参数都会转为 resume 的额外返回值。</strong></p>
-
-<pre class="has">
-<code class="language-Delphi">local co = coroutine.create(
-    function (input)
-        print("input : "..input)
-        local param1, param2 ,param3 = coroutine.yield("yield1", "learning1")
-        print("param1 is : " .. param1)
-        print("param2 is : " .. param2)
-        print("param3 is : " .. param3)
-        local param4, param5 = coroutine.yield("yield2", "learning2")
-    print("param4 is : " .. param4)
-    print("param5 is : " .. param5)
-        -- return 也会将结果返回给 resume
-        return "coroutine return" , 1+2
-    end)
-
---第一次执行,将参数传给input
-print("first resume",coroutine.resume(co, "coroutine function"))
-print("this is main chunk")
---第二次执行,将参数作为yield的返回值,传给param1 param2 param3
-print("second resume",coroutine.resume(co, "param1", "param2", "param3"))
---第三次执行,将参数作为yield的返回值,传给param4 param5 多余的param6被舍弃
-print("third resume",coroutine.resume(co, "param4", "param5", "param6"))</code></pre>
-
-<p><strong>输出：</strong></p>
-
-<p><img alt class="has" height="163" src="https://img-blog.csdnimg.cn/20190417110959958.png" width="467"></p>
-
-<p><strong>分析：</strong></p>
-
-<p><ol><li>第一次调用resume，将协同程序唤醒，入参作为函数入参；</li>
-    <li>协同程序运行；</li>
-    <li>运行到yield语句；</li>
-    <li>yield挂起协同程序，第一次resume返回，,resume操作成功返回true，否则返回false；（注意：此处yield入参（yield1、learning1）是resume的返回值）</li>
-    <li>第二次调用resume，将协同程序唤醒，入参（param1, param2 ,param3）作为yield的返回值 ；</li>
-    <li>协同程序运行；</li>
-    <li>运行到yield语句；</li>
-    <li>yield挂起协同程序，第二次resume返回，,resume操作成功返回true，否则返回false；（注意：此处yield入参（yield2、learning2）是resume的返回值）</li>
-    <li>...</li>
-</ol></p><p> </p><p></p>
-<p><strong>3. coroutine.status(co)</strong></p>
-
-<p>以字符串形式返回协程 co 的状态：</p>
-
-<p><ul><li>当协程正在运行（它就是调用 status 的那个） ，返回 "running"；</li>
-    <li>如果协程调用 yield 挂起或是还没有开始运行，返回 "suspended"；</li>
-    <li>如果协程是活动的，都并不在运行（即它正在延续其它协程），返回 "normal"；</li>
-    <li>如果协程运行完主体函数或因错误停止，返回 "dead"。</li>
-</ul><pre class="has"><br><code class="language-Delphi">local co<br>local co2 = coroutine.create(function() print(“3.”..coroutine.status(co)) end)<br>co = coroutine.create(<br>    function ()<br>        print(“2.”..coroutine.status(co))<br>        coroutine.resume(co2)<br>        coroutine.yield()<br>    end)</code></pre></p>
-<p>print(“1.”..coroutine.status(co))<br>coroutine.resume(co)<br>print(“4.”..coroutine.status(co))<br>coroutine.resume(co)<br>print(“5.”..coroutine.status(co))</p>
-<p>&lt;/code&gt;&lt;/pre&gt;</p>
-<p><strong>输出：</strong></p>
-
-<p><img alt class="has" height="108" src="https://img-blog.csdnimg.cn/20190417111258814.png" width="453"></p>
-
-<p> </p>
-
-<p><strong>4. coroutine.wrap(func)</strong></p>
-
-<p>创建一个主体函数为 func 的新协程。func 必须是一个 Lua 的函数。返回一个函数，每次调用该函数都会延续该协程(不需要调用resume)。传给这个函数的参数都会作为 resume 的额外参数。和 resume 返回相同的值，只是没有第一个布尔量。</p>
-
-<pre class="has">
-<code class="language-Delphi">local wrap = coroutine.wrap(
-    function (input)
-        print("input : "..input)
-        local param1, param2 ,param3 = coroutine.yield("yield1", "learning1")
-        print("param1 is : " .. param1)
-        print("param2 is : " .. param2)
-        print("param3 is : " .. param3)
-        local param4, param5 = coroutine.yield("yield2", "learning2")
-    print("param4 is : " .. param4)
-    print("param5 is : " .. param5)
-        -- return 也会将结果返回给 resume
-        return "coroutine return" , 1+2
-    end)
-
---第一次执行,将参数传给input
-print("first resume", wrap("coroutine function"))
-print("this is main chunk")
---第二次执行,将参数作为yield的返回值,传给param1 param2 param3
-print("second resume", wrap("param1", "param2", "param3"))
---第三次执行,将参数作为yield的返回值,传给param4 param5 多余的param6被舍弃
-print("third resume", wrap("param4", "param5", "param6"))</code></pre>
-
-<p><strong>输出：</strong></p>
-
-<p><img alt class="has" height="158" src="https://img-blog.csdnimg.cn/2019041711183286.png" width="462"></p>
-
-<p><strong>注：coroutine.wrap不是保护模式运行,如果发生任何错误，抛出这个错误。如下</strong></p>
-
-<pre class="has">
-<code class="language-Delphi">local wrap = coroutine.wrap(
-    function (input)
-        print("input : "..input)
-        local param1, param2 ,param3 = coroutine.yield("yield1", "learning1")
-        print("param1 is : " .. param1)
-        print("param2 is : " .. param2)
-        print("param3 is : " .. param3)
-        local param4 = coroutine.yield("yield2", "learning2")
-    print("param4 is : " .. param4)
-    print("param5 is : " .. param5)
-        -- return 也会将结果返回给 resume
-        return "coroutine return" , 1+2
-    end)
-
---第一次执行,将参数传给input
-print("first resume", wrap("coroutine function"))
-print("this is main chunk")
---第二次执行,将参数作为yield的返回值,传给param1 param2 param3
-print("second resume", wrap("param1", "param2", "param3"))
---第三次执行,将参数作为yield的返回值,传给param4 param5 多余的param6被舍弃
-print("third resume", wrap("param4", "param5", "param6"))</code></pre>
-
-<p><strong>输出：</strong></p>
-
-<p><img alt class="has" height="94" src="https://img-blog.csdnimg.cn/20190417112301475.png" width="723"></p>
-
-<p> </p>
-
-<p><strong>5. coroutine.running()</strong></p>
-
-<p>返回当前的协程,如果实在主线程,则返回nil</p>
-
-<pre class="has">
-<code class="language-Delphi">local co = coroutine.create(
-    function () 
-        print(coroutine.running()) 
-        end)
-
-print(coroutine.running())
-coroutine.resume(co)
-print(co)</code></pre>
-
-<p><strong>输出：</strong></p>
-
-<p><img alt class="has" height="71" src="https://img-blog.csdnimg.cn/20190417112015927.png" width="501"></p>
-
-<p> </p>
+<p>本是小辣鸡。以前也只是写业务代码，全靠领导给机会让我自己负责一个服务器的编写，部署，上线需要的资源评估。记录第一次做上线资源评估的过程。</p>
+<p>项目背景是，搭在云服务商上的集群，集群管理是kubernetes。首次内测目标5000个用户。</p>
+<h1 id="主要如下"><a href="#主要如下" class="headerlink" title="主要如下"></a>主要如下</h1><p>1.服务器需要多少内存<br>2.服务器需要多少cpu<br>3.了解购买的云服务参数<br>4.修改kubernetes部署文件</p>
+<p>首先需要做压测，我写的服务器是用golang写的用于聊天服务器，所以在世界聊天的时候，压力就会非常大。压力也是要测试这里，看看需要消耗多少性能。</p>
+<h1 id="服务器需要多少内存"><a href="#服务器需要多少内存" class="headerlink" title="服务器需要多少内存"></a>服务器需要多少内存</h1><p>我使用了golang的profile进行分析，登录了5000玩家后，在profile中，查看到内存情况总共消耗171000000字节左右。计算出一个玩家大约使用32KB的内存。服务器本身启动不占多少内存，最后评估需要256m的内存。</p>
+<h1 id="服务器需要多少cpu"><a href="#服务器需要多少cpu" class="headerlink" title="服务器需要多少cpu"></a>服务器需要多少cpu</h1><p>在压测的时候，已经看了cpu的profile，看上去一切正常。剩下就是发消息。我启动服务器的机器是16核，2.2GHz的服务器。在每秒200人同时发消息到世界频道，5000人接收的情况下。使用top命令查看最高的时候，跑了586%的cpu，按6个计算，就是6*2200mhz = 13200mhz。也就是说在最极端的情况下，全部人都不玩游戏，只在大厅聊天，每秒200个人发，按照计算最多需要13200mhz的cpu。</p>
+<h1 id="了解购买的云服务参数"><a href="#了解购买的云服务参数" class="headerlink" title="了解购买的云服务参数"></a>了解购买的云服务参数</h1><p>集群中总共有8台机器，每台8G内存，4个cpu，每个cpu是3.4Ghz约等于3400mhz，4个cpu大约13600mhz。</p>
+<h1 id="修改kubernetes部署文件"><a href="#修改kubernetes部署文件" class="headerlink" title="修改kubernetes部署文件"></a>修改kubernetes部署文件</h1><p>因为要充分利用机器性能，所以不能够只部署一个pod，我的服务器之部署一个pod的话，会直接压干一台云服务器的cpu，导致这台云服务器只剩下400mhz的cpu，可能无法起别的pod，上面的内存也将被浪费掉。所以必须起多个pod。最终决定用以下配置，每个pod请求1000M内存，1整个核心的cpu，最大只给2000M内存和两个核心的cpu。<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">requests:</span></span><br><span class="line">    <span class="attr">memory:</span> <span class="string">1000Mi</span></span><br><span class="line">    <span class="attr">cpu:</span> <span class="string">1000m</span></span><br><span class="line"><span class="attr">limits:</span></span><br><span class="line">    <span class="attr">memory:</span> <span class="string">2000Mi</span></span><br><span class="line">    <span class="attr">cpu:</span> <span class="string">2000m</span></span><br></pre></td></tr></table></figure><br>这样，一台云机器最少还有6G内存，和3个cpu可以分配给别的pod，不会造成资源浪费。另外，等到真正上线的时候，如果人太多了，资源不够用也是不怕的。kubernetes还有自动扩容。</p>
 ]]></content>
       <categories>
-        <category>lua</category>
+        <category>笔记 k8s</category>
       </categories>
       <tags>
-        <tag>Lua 协程（coroutine）</tag>
+        <tag>kubernetes 后端</tag>
       </tags>
   </entry>
 </search>
