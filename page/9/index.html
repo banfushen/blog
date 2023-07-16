@@ -188,6 +188,378 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/04/02/Lua%20for%20%E5%BE%AA%E7%8E%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fushen Ban">
+      <meta itemprop="description" content="正在进化">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拼图收集者">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/02/Lua%20for%20%E5%BE%AA%E7%8E%AF/" class="post-title-link" itemprop="url">Lua for 循环</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-02 17:02:46" itemprop="dateCreated datePublished" datetime="2019-04-02T17:02:46+08:00">2019-04-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-16 17:11:17" itemprop="dateModified" datetime="2023-07-16T17:11:17+08:00">2023-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/lua/" itemprop="url" rel="index"><span itemprop="name">lua</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+<p>真的是无语，我手一个字一个字的敲的，发布一年后说我抄袭。Lua语言for循环分为两大类：<strong>数值for循环、泛型for循环</strong></p>
+
+<h1><strong>1.数值for循环</strong></h1>
+
+<p>Lua 编程语言中数值for循环语法格式:</p>
+
+<pre class="has">
+<code class="language-Delphi">for var=exp1,exp2,exp3 do  
+    &lt;执行体&gt;  
+end  </code></pre>
+
+<p>var 从 exp1 变化到 exp2，每次变化以 exp3 为步长递增 var，并执行一次 <strong>"执行体"</strong>。exp3 是可选的，如果不指定，默认为1。</p>
+
+<h3>实例：</h3>
+
+<pre class="has">
+<code class="language-Delphi">for i=10,1,-2 do
+    print(i)
+end</code></pre>
+
+<p>以上实例输出结果为：</p>
+
+<p><img alt class="has" height="84" src="https://img-blog.csdnimg.cn/20190402165248152.png" width="440"></p>
+
+<h3><strong>注意：</strong>for的三个表达式在循环开始前一次性求值，以后不再进行求值。</h3>
+
+<pre class="has">
+<code class="language-Delphi">function f(x)
+    print("function")
+    return x*2
+end
+for i=1,f(5) do 
+    print(i)
+end
+</code></pre>
+
+<p>以上实例输出结果为：</p>
+
+<p><img alt class="has" height="167" src="https://img-blog.csdnimg.cn/20190402165706247.png" width="463"></p>
+
+<h1>2.泛型for循环</h1>
+
+<p>泛型 for 循环通过一个迭代器函数来遍历所有值，Lua 编程语言中泛型 for 循环语法格式:</p>
+
+<pre class="has">
+<code class="language-Delphi">--打印数组a的所有值  
+a = &#123;"one", "two", "three"&#125;
+for i, v in ipairs(a) do
+    print(i, v)
+end </code></pre>
+
+<p>i是数组索引值，v是对应索引的数组元素值。ipairs是Lua提供的一个迭代器函数，用来迭代数组。</p>
+
+<h3>实例：</h3>
+
+<pre class="has">
+<code class="language-Delphi">days = &#123;"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"&#125;  
+for i,v in ipairs(days) do 
+    print(v) 
+end </code></pre>
+
+<p>以上实例输出结果为：</p>
+
+<p><img alt class="has" height="133" src="https://img-blog.csdnimg.cn/20190402170223788.png" width="467"></p>
+
+<p> </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/03/17/C++%E5%A4%9A%E6%80%81%E3%80%81%E8%99%9A%E5%87%BD%E6%95%B0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fushen Ban">
+      <meta itemprop="description" content="正在进化">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拼图收集者">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/17/C++%E5%A4%9A%E6%80%81%E3%80%81%E8%99%9A%E5%87%BD%E6%95%B0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">C++多态、虚函数笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-17 23:32:34" itemprop="dateCreated datePublished" datetime="2019-03-17T23:32:34+08:00">2019-03-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-16 17:11:17" itemprop="dateModified" datetime="2023-07-16T17:11:17+08:00">2023-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+<p><strong>多态</strong>按字面的意思就是多种形态。当类之间存在层次结构，并且类之间是通过继承关联时，就会用到多态。</p>
+
+<p>C++ 多态意味着调用成员函数时，据调用函数的对象的类型来执行不同的函数。</p>
+
+<h1>例如：</h1>
+
+<pre class="has">
+<code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Shape &#123;
+protected:
+    int width, height;
+public:
+    Shape(int a = 0, int b = 0): width(a), height(b) &#123; &#125;//初始化width, height
+    int area()
+    &#123;
+        cout &lt;&lt; "Parent class area :" &lt;&lt; endl;
+        return 0;
+    &#125;
+&#125;;
+class Rectangle : public Shape &#123;
+public:
+    //Rectangle(int a = 0, int b = 0) :Shape(a, b) &#123; &#125;
+    Rectangle(int a = 0, int b = 0)
+    &#123;
+        width = a;
+        height = b;
+    &#125;
+    int area()
+    &#123;
+        cout &lt;&lt; "Rectangle class area :" &lt;&lt; width * height &lt;&lt; endl;
+        return (width * height);
+    &#125;
+&#125;;
+class Triangle : public Shape &#123;
+public:
+    Triangle(int a = 0, int b = 0) :Shape(a, b) &#123; &#125;//派生类先调用基类构造函数初始化width， height。然后派生类继承变量
+    int area()
+    &#123;
+        cout &lt;&lt; "Triangle class area :" &lt;&lt; width * height &lt;&lt; endl;
+        return (width * height / 2);
+    &#125;
+&#125;;
+// 程序的主函数
+int main()
+&#123;
+    Shape *shape;
+    Rectangle rec(10, 7);
+    Triangle  tri(10, 5);
+
+    // 存储矩形的地址
+    shape = &amp;rec;
+    // 调用矩形的求面积函数 area
+    shape-&gt;area();
+
+    // 存储三角形的地址
+    shape = &amp;tri;
+    // 调用三角形的求面积函数 area
+    shape-&gt;area();
+
+    system("Pause");
+
+    return 0;
+&#125;</code></pre>
+
+<p>运行结果为</p>
+
+<p><img alt class="has" height="112" src="https://img-blog.csdnimg.cn/20190317230333452.png" width="255"></p>
+
+<p>基类的指针可以指向派生类的对象，我们想达到的结果是，分别调用rec对象的area()方法，tri对象的area()方法计算面积。</p>
+
+<p>但调用函数 area() 被编译器设置为基类中的版本，这就是所谓的<strong>静态多态</strong>，或<strong>静态链接</strong> - 函数调用在程序执行前就准备好了。有时候这也被称为<strong>早绑定</strong>，因为 area() 函数在程序编译期间就已经设置好了。</p>
+
+<p>但现在，让我们对程序稍作修改，在 Shape 类中，area() 的声明前放置关键字 <strong>virtual</strong>，如下所示：</p>
+
+<pre class="has">
+<code class="language-cpp">class Shape &#123;
+protected:
+    int width, height;
+public:
+    Shape(int a = 0, int b = 0): width(a), height(b) &#123; &#125;
+    virtual int area()
+    &#123;
+        cout &lt;&lt; "Parent class area :" &lt;&lt; endl;
+        return 0;
+    &#125;
+&#125;;</code></pre>
+
+<p>运行结果如下：</p>
+
+<p><img alt class="has" height="128" src="https://img-blog.csdnimg.cn/20190317231409414.png" width="252"></p>
+
+<p>此时，编译器看的是指针的内容，而不是它的类型。因此，由于 tri 和 rec 类的对象的地址存储在 *shape 中，所以会调用各自的 area() 函数。</p>
+
+<p>正如您所看到的，每个子类都有一个函数 area() 的独立实现。这就是<strong>多态</strong>的一般使用方式。有了多态，您可以有多个不同的类，都带有同一个名称但具有不同实现的函数，函数的参数甚至可以是相同的。</p>
+
+<h2>虚函数</h2>
+
+<p><strong>虚函数</strong> 是在基类中使用关键字 <strong>virtual</strong> 声明的函数。在派生类中重新定义基类中定义的虚函数时，会告诉编译器不要静态链接到该函数。</p>
+
+<p>想要的是在程序中任意点可以根据所调用的对象类型来选择调用的函数，这种操作被称为<strong>动态链接</strong>，或<strong>后期绑定</strong>。</p>
+
+<h2>纯虚函数</h2>
+
+<p>如果想要在基类中定义虚函数，以便在派生类中重新定义该函数更好地适用于对象，但是在基类中又不能对虚函数给出有意义的实现，这个时候就会用到纯虚函数。</p>
+
+<p>我们可以把基类中的虚函数 area() 改写如下：</p>
+
+<pre class="has">
+<code class="language-cpp">class Shape &#123;
+   protected:
+      int width, height;
+   public:
+      Shape( int a=0, int b=0)
+      &#123;
+         width = a;
+         height = b;
+      &#125;
+      // pure virtual function
+      virtual int area() = 0;
+&#125;;
+</code></pre>
+
+<p>1. = 0 告诉编译器，函数没有主体，上面的虚函数是<strong>纯虚函数</strong>。纯虚函数用来规范派生类的行为，即接口。包含纯虚函数的类是抽象类，抽象类不能定义实例，但可以声明指向实现该抽象类的具体类的指针或引用。</p>
+
+<p>2. 虚函数声明如下：</p>
+
+<pre class="has">
+<code class="language-cpp">class Shape &#123;
+protected:
+    int width, height;
+public:
+    Shape(int a = 0, int b = 0): width(a), height(b) &#123; &#125;
+    virtual int area();
+    //&#123;
+    //    cout &lt;&lt; "Parent class area :" &lt;&lt; endl;
+    //    return 0;
+    //&#125;
+&#125;;</code></pre>
+
+<p>虚函数必须实现，如果不实现，编译器将报错，错误提示为</p>
+
+<p><img alt class="has" height="104" src="https://img-blog.csdnimg.cn/20190317232503174.png" width="1055"></p>
+
+<p>编译器对每个包含虚函数的类创建一个虚函数表VTABLE，表中每一项指向一个虚函数的地址，即VTABLE表可以看成一个函数指针的数组，每个虚函数的入口地址就是这个数组的一个元素。</p>
+
+<p>每个含有虚函数的类都有各自的一张虚函数表VTABLE。每个派生类的VTABLE继承了它各个基类的VTABLE，如果基类VTABLE中包含某一项（虚函数的入口地址），则其派生类的VTABLE中也将包含同样的一项，但是两项的值可能不同。如果派生类中重载了该项对应的虚函数，则派生类VTABLE的该项指向重载后的虚函数，如果派生类中没有对该项对应的虚函数进行重新定义，则使用基类的这个虚函数地址。</p>
+
+<p>在创建含有虚函数的类的对象的时候，编译器会在每个对象的内存布局中增加一个vptr指针项，该指针指向本类的VTABLE。在通过指向基类对象的指针（设为bp）调用一个虚函数时，编译器生成的代码是先获取所指对象的vptr指针，然后调用vptr所指向类的VTABLE中的对应项（具体虚函数的入口地址）。</p>
+
+<p>当基类中<strong>没有定义虚函数</strong>时，其长度=数据成员长度；派生类长度=自身数据成员长度+基类继承的数据成员长度；</p>
+
+<p>当基类中<strong>定义虚函数后</strong>，其长度=数据成员长度+虚函数表的地址长度；派生类长度=自身数据成员长度+基类继承的数据成员长度+虚函数表的地址长度。</p>
+
+<p>包含一个虚函数和几个虚函数的类的长度增量为0。含有虚函数的类只是增加了一个指针用于存储虚函数表的首地址。</p>
+
+<p>派生类与基类同名的虚函数在VTABLE中有相同的索引号（或序号）。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2019/01/29/C++%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%86%E5%89%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -524,6 +896,121 @@ long iMystrtok(string sData, string sFlg, vector&lt;string&gt; &amp;vStr)<br>
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/01/05/VC++%206.0%E5%BC%80%E5%8F%91OCX%E6%8E%A7%E4%BB%B6%E6%97%B6%E9%81%87%E5%88%B0LIBCMT.lib(crt0.obj)%20!%20error%20LNK2001!%20unresolved%20external%20symbol%20_main%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fushen Ban">
+      <meta itemprop="description" content="正在进化">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拼图收集者">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/05/VC++%206.0%E5%BC%80%E5%8F%91OCX%E6%8E%A7%E4%BB%B6%E6%97%B6%E9%81%87%E5%88%B0LIBCMT.lib(crt0.obj)%20!%20error%20LNK2001!%20unresolved%20external%20symbol%20_main%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">VC++ 6.0开发OCX控件时遇到LIBCMT.lib(crt0.obj)：error：LNK2001 unresolved external symbol _main问题解决记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-05 11:58:14" itemprop="dateCreated datePublished" datetime="2019-01-05T11:58:14+08:00">2019-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-16 17:42:10" itemprop="dateModified" datetime="2023-07-16T17:42:10+08:00">2023-07-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+<p>当你OCX控件的ReleaseMinDependency版时，你得到了下面这个链接错误：</p>
+
+<p>   <strong>LIBCMT.LIB(crt0.obj) : error LNK2001: unresolved external symbol _main</strong></p>
+
+<p>而Debug版本的编连却顺利通过。</p>
+
+<p><br>
+出错原因：<br>
+如果你在工程中使用了CRT函数，而这些函数又需要CRT启动代码，就会出现这种链接错误。默认情况下，ReleaseMinDepende配置的Preprocessor definitions中定义了<span style="color:#f33b45;"><strong>_ATL_MIN_CRT</strong></span>，它将CRT启动代码从你的EXE或DLL剔出去了。</p>
+
+<p> </p>
+
+<p>背景知识：</p>
+
+<p>ATL支持把一个服务器编连优化成最小尺寸或者依赖性最小。我们可以定义三个预处理器符号来影响服务器的优化。</p>
+
+<p>_ATL_MIN_CRT             服务器不链接标准的C/C++运行库</p>
+
+<p>_ATL_DLL                  服务器动态链接工具函数库atl.dll</p>
+
+<p>_ATL_STATIC_REGISTRY    服务器静态链接对组件注册的支持</p>
+
+<p>如果定义了预处理器符号_ATL_MIN_CRT，那么我们的服务器不链接C/C++运行库，并且ATL提供了函数malloc、realloc、new和delete的一个实现。当定义了这个符号时，我们不能调用任何其他的C/C++运行库的函数。否则，就会受到这样的待遇：</p>
+
+<p>LIBCMT.LIB(crt0.obj) : error LNK2001: unresolved external symbol _main</p>
+
+<p>ATL向导生成的ATL工程为所有的Release版本的编连定义了_ATL_MIN_CRT，但是没有为Debug版本定义这个符号。</p>
+
+<p>Debug配置没有定义这三个符号中的任何一个。</p>
+
+<p>RelMinSize配置定义了_ATL_MIN_CRT和_ATL_DLL。</p>
+
+<p>RelMinDependency配置定义了_ATL_MIN_CRT和_ATL_STATIC_REGISTRY。</p>
+
+<p> </p>
+
+<p> </p>
+
+<p>解决方法：</p>
+
+<p>Project -----&gt; Settings-----&gt; C/C++</p>
+
+<p>在Category中选择General ;</p>
+
+<p>去除<span style="color:#f33b45;"><strong>_ATL_MIN_CRT</strong></span>这个预处理符号；</p>
+
+<p> </p>
+
+<p> </p>
+
+<p>参考来自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/richie12/article/details/5799097">https://blog.csdn.net/richie12/article/details/5799097</a></p>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -593,7 +1080,7 @@ long iMystrtok(string sData, string sFlg, vector&lt;string&gt; &amp;vStr)<br>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -606,7 +1093,7 @@ long iMystrtok(string sData, string sFlg, vector&lt;string&gt; &amp;vStr)<br>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

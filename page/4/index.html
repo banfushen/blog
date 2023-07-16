@@ -956,6 +956,109 @@ export GOROOT=/usr/local/go
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/21/golang%20net!http%E5%8C%85%E5%9C%A8k8s%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%A2%B0%E5%88%B0http!%20superfluous%20response.WriteHeader%20call%20from%20xxx%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fushen Ban">
+      <meta itemprop="description" content="正在进化">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拼图收集者">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/21/golang%20net!http%E5%8C%85%E5%9C%A8k8s%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%A2%B0%E5%88%B0http!%20superfluous%20response.WriteHeader%20call%20from%20xxx%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">golang net/http包在k8s使用中碰到http：superfluous response.WriteHeader call from xxx的问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-21 17:48:37" itemprop="dateCreated datePublished" datetime="2021-01-21T17:48:37+08:00">2021-01-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-16 17:42:48" itemprop="dateModified" datetime="2023-07-16T17:42:48+08:00">2023-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/golang/" itemprop="url" rel="index"><span itemprop="name">golang</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+<p>      在项目中，需要使用golang写http服务器并部署在k8s中，在server deployment.yaml中存在livenessProbe(存活探针)以及readinessProbe(就绪探针)，这两个我都是写了向服务器发送一个http请求，如果服务器收到并回复，则表示成功，但是在使用过程中，日志一直输出，这些会干扰日志的查看。</p>
+
+<p><img alt height="346" src="https://img-blog.csdnimg.cn/20210121174550591.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="688"></p>
+
+<p>经过查询与测试，最后修复，做此纪录，代码如下。</p>
+
+<pre>
+<code class="language-Go">func healthcheck(w http.ResponseWriter, r *http.Request) &#123;
+    //fmt.Fprintf(w, "i m live") 原来就是因为多了这行,然后一直输出,屏蔽了即可
+    w.WriteHeader(200)
+&#125;
+
+func main() &#123;
+    router := http.NewServeMux()
+    router.HandleFunc("/healthcheck", healthcheck)
+    port := fmt.Sprint(":", *config.Conf.HttpPort)
+    srv := &amp;http.Server&#123;
+        Addr:    port,
+        Handler: router,
+    &#125;
+
+    logger.Info("[HTTP] http server listen", port)
+    if err := srv.ListenAndServe(); err != nil &amp;&amp; err != http.ErrServerClosed &#123;
+        logger.Error("[HTTP] server listen on", port, ", err:", err)
+        os.Exit(1)
+    &#125;
+&#125;</code></pre>
+
+<p> </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/18/golang%20%E2%80%9D%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E7%9A%84%20Go%20Web%20%E6%9C%8D%E5%8A%A1%E5%99%A8%E2%80%9C%EF%BC%8C%E5%8F%AF%E8%83%BD%E4%BC%9A%E7%A2%B0%E5%88%B0%E7%9A%84%E5%9D%91%E3%80%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1225,100 +1328,6 @@ ENTRYPOINT ["python", "-m", "SimpleHTTPServer", "8080"] //修改镜像的入口<
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/21/k8s%E4%B8%AD%EF%BC%8C%E6%80%8E%E4%B9%88%E5%9C%A8container%E4%B8%AD%E5%88%87%E6%8D%A2%E8%A7%92%E8%89%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Fushen Ban">
-      <meta itemprop="description" content="正在进化">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="拼图收集者">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/12/21/k8s%E4%B8%AD%EF%BC%8C%E6%80%8E%E4%B9%88%E5%9C%A8container%E4%B8%AD%E5%88%87%E6%8D%A2%E8%A7%92%E8%89%B2/" class="post-title-link" itemprop="url">k8s中，怎么在container中切换角色</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-12-21 11:20:40" itemprop="dateCreated datePublished" datetime="2020-12-21T11:20:40+08:00">2020-12-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-07-16 17:11:17" itemprop="dateModified" datetime="2023-07-16T17:11:17+08:00">2023-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <span id="more"></span>
-<p>    工作中，需要在k8s中调试container，但是container中有可能很多东西又没有，比如vim等，没有就无法修改代码，想使用su 更改为root用户又不知道密码。可以使用以下方法。</p>
-
-<p>    直接修改pod的yaml文件</p>
-
-<pre>
-<code>containers:
-  - name: ...
-    image: ...
-    securityContext:
-      runAsUser: 0</code></pre>
-
-<p>这样登录进去就是root角色，<strong>0指root用户的uid</strong>。在里面就可以安装自己想安装的工具进行调试。</p>
-
-<p>比如我，进去调试之后安装了vim</p>
-
-<pre>
-<code>apt update
-apt install vim</code></pre>
-
-<p> </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1388,7 +1397,7 @@ apt install vim</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1401,7 +1410,7 @@ apt install vim</code></pre>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

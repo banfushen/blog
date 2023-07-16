@@ -322,6 +322,21 @@ print("你终于动手了")</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>Kubernetes nodes are not ready原因查看</title>
+    <url>/2021/07/24/Kubernetes%20nodes%20are%20not%20ready%E5%8E%9F%E5%9B%A0%E6%9F%A5%E7%9C%8B/</url>
+    <content><![CDATA[<span id="more"></span>
+<p>今早收到了Prometheus的报警，4% of Kubernetes nodes are not ready。</p>
+<p>直接查看node情况即可知道原因。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">banfushen@pro:~/helm-chart/prometheus-netease/templates$ kubectl describe nodes ip-xx-x-xxx-xxx.ap-northeast-1.compute.internal</span><br><span class="line">Name:               ip-xx-x-xxx-xxx.ap-northeast-1.compute.internal</span><br><span class="line">Roles:              node</span><br><span class="line">Labels:             beta.kubernetes.io/arch=amd64</span><br><span class="line">                    beta.kubernetes.io/instance-type=c5.xlarge</span><br><span class="line">                    beta.kubernetes.io/os=linux</span><br><span class="line">                    failure-domain.beta.kubernetes.io/region=ap-northeast-1</span><br><span class="line">                    failure-domain.beta.kubernetes.io/zone=ap-northeast-1c</span><br><span class="line">                    kubernetes.io/hostname=ip-xx-x-xxx-xxx.ap-northeast-1.compute.internal</span><br><span class="line">                    kubernetes.io/role=node</span><br><span class="line">                    node-role.kubernetes.io/node=</span><br><span class="line">Annotations:        node.alpha.kubernetes.io/ttl: 0</span><br><span class="line">                    volumes.kubernetes.io/controller-managed-attach-detach: <span class="literal">true</span></span><br><span class="line">CreationTimestamp:  Sat, 24 Jul 2021 03:05:08 +0800</span><br><span class="line">Taints:             &lt;none&gt;</span><br><span class="line">Unschedulable:      <span class="literal">false</span></span><br><span class="line">Conditions:</span><br><span class="line">  Type             Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message</span><br><span class="line">  ----             ------  -----------------                 ------------------                ------                       -------</span><br><span class="line">  OutOfDisk        False   Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:08 +0800   KubeletHasSufficientDisk     kubelet has sufficient disk space available</span><br><span class="line">  MemoryPressure   False   Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:08 +0800   KubeletHasSufficientMemory   kubelet has sufficient memory available</span><br><span class="line">  DiskPressure     False   Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:08 +0800   KubeletHasNoDiskPressure     kubelet has no disk pressure</span><br><span class="line">  PIDPressure      False   Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:08 +0800   KubeletHasSufficientPID      kubelet has sufficient PID available</span><br><span class="line">  Ready            True    Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:28 +0800   KubeletReady                 kubelet is posting ready status</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>k8s</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux 创建属于自定义命令</title>
     <url>/2020/02/11/Linux%20%E5%88%9B%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%AE%9A%E4%B9%89%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<span id="more"></span>
@@ -344,21 +359,6 @@ print("你终于动手了")</code></pre>
       </categories>
       <tags>
         <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kubernetes nodes are not ready原因查看</title>
-    <url>/2021/07/24/Kubernetes%20nodes%20are%20not%20ready%E5%8E%9F%E5%9B%A0%E6%9F%A5%E7%9C%8B/</url>
-    <content><![CDATA[<span id="more"></span>
-<p>今早收到了Prometheus的报警，4% of Kubernetes nodes are not ready。</p>
-<p>直接查看node情况即可知道原因。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">banfushen@pro:~/helm-chart/prometheus-netease/templates$ kubectl describe nodes ip-xx-x-xxx-xxx.ap-northeast-1.compute.internal</span><br><span class="line">Name:               ip-xx-x-xxx-xxx.ap-northeast-1.compute.internal</span><br><span class="line">Roles:              node</span><br><span class="line">Labels:             beta.kubernetes.io/arch=amd64</span><br><span class="line">                    beta.kubernetes.io/instance-type=c5.xlarge</span><br><span class="line">                    beta.kubernetes.io/os=linux</span><br><span class="line">                    failure-domain.beta.kubernetes.io/region=ap-northeast-1</span><br><span class="line">                    failure-domain.beta.kubernetes.io/zone=ap-northeast-1c</span><br><span class="line">                    kubernetes.io/hostname=ip-xx-x-xxx-xxx.ap-northeast-1.compute.internal</span><br><span class="line">                    kubernetes.io/role=node</span><br><span class="line">                    node-role.kubernetes.io/node=</span><br><span class="line">Annotations:        node.alpha.kubernetes.io/ttl: 0</span><br><span class="line">                    volumes.kubernetes.io/controller-managed-attach-detach: <span class="literal">true</span></span><br><span class="line">CreationTimestamp:  Sat, 24 Jul 2021 03:05:08 +0800</span><br><span class="line">Taints:             &lt;none&gt;</span><br><span class="line">Unschedulable:      <span class="literal">false</span></span><br><span class="line">Conditions:</span><br><span class="line">  Type             Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message</span><br><span class="line">  ----             ------  -----------------                 ------------------                ------                       -------</span><br><span class="line">  OutOfDisk        False   Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:08 +0800   KubeletHasSufficientDisk     kubelet has sufficient disk space available</span><br><span class="line">  MemoryPressure   False   Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:08 +0800   KubeletHasSufficientMemory   kubelet has sufficient memory available</span><br><span class="line">  DiskPressure     False   Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:08 +0800   KubeletHasNoDiskPressure     kubelet has no disk pressure</span><br><span class="line">  PIDPressure      False   Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:08 +0800   KubeletHasSufficientPID      kubelet has sufficient PID available</span><br><span class="line">  Ready            True    Sat, 24 Jul 2021 18:00:31 +0800   Sat, 24 Jul 2021 03:05:28 +0800   KubeletReady                 kubelet is posting ready status</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>k8s</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
       </tags>
   </entry>
   <entry>
@@ -2115,6 +2115,44 @@ apt install vim</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>lua中的整除与取整数</title>
+    <url>/2019/09/04/lua%E4%B8%AD%E7%9A%84%E6%95%B4%E9%99%A4%E4%B8%8E%E5%8F%96%E6%95%B4%E6%95%B0/</url>
+    <content><![CDATA[<span id="more"></span>
+<p>        书籍是人类进步的阶梯，在没看lua程序设计第四版之前，并不知道lua有整除运算符，需要返回整除结果的时候，自己还得进行多余的运算，减去小数部分。前几天需求刚好需要用到整除和取一个浮点数的整数部分，运用之，作此记录。</p>
+
+<p> </p>
+
+<h1>整除</h1>
+
+<p>lua中“<strong> / </strong>”代表除法，计算结果都是存在小数的。lua5.3后还提供了一个整除的运算符“<strong> // </strong>"。</p>
+
+<p><img alt class="has" height="141" src="https://img-blog.csdnimg.cn/2019090419572156.png" width="617"></p>
+
+<h1>取整数</h1>
+
+<p>lua数学库提供了三个取整函数</p>
+
+<p><strong>math.floor()，math.ceil()和math.modf()</strong></p>
+
+<p>math.floor()向负无穷取整</p>
+
+<p><img alt class="has" height="127" src="https://img-blog.csdnimg.cn/20190904200121599.png" width="546"></p>
+
+<p>math.ceil()向正无穷取证</p>
+
+<p><img alt class="has" height="106" src="https://img-blog.csdnimg.cn/20190904200225114.png" width="393"></p>
+
+<p>modf向零取整(有两个返回值，返回整数与小数部分)</p>
+
+<p><img alt class="has" height="103" src="https://img-blog.csdnimg.cn/20190904200327478.png" width="326"></p>
+
+<p> </p>
+]]></content>
+      <categories>
+        <category>lua</category>
+      </categories>
+  </entry>
+  <entry>
     <title>nodejs aes192加密，在golang中解密碰到的坑</title>
     <url>/2021/01/25/nodejs%20aes192%E5%8A%A0%E5%AF%86%EF%BC%8C%E5%9C%A8golang%E4%B8%AD%E8%A7%A3%E5%AF%86%E7%A2%B0%E5%88%B0%E7%9A%84%E5%9D%91/</url>
     <content><![CDATA[<span id="more"></span>
@@ -2203,44 +2241,6 @@ func aesCbcDecrypt(cipherText []byte) string &#123;
       <tags>
         <tag>golang node.js</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>lua中的整除与取整数</title>
-    <url>/2019/09/04/lua%E4%B8%AD%E7%9A%84%E6%95%B4%E9%99%A4%E4%B8%8E%E5%8F%96%E6%95%B4%E6%95%B0/</url>
-    <content><![CDATA[<span id="more"></span>
-<p>        书籍是人类进步的阶梯，在没看lua程序设计第四版之前，并不知道lua有整除运算符，需要返回整除结果的时候，自己还得进行多余的运算，减去小数部分。前几天需求刚好需要用到整除和取一个浮点数的整数部分，运用之，作此记录。</p>
-
-<p> </p>
-
-<h1>整除</h1>
-
-<p>lua中“<strong> / </strong>”代表除法，计算结果都是存在小数的。lua5.3后还提供了一个整除的运算符“<strong> // </strong>"。</p>
-
-<p><img alt class="has" height="141" src="https://img-blog.csdnimg.cn/2019090419572156.png" width="617"></p>
-
-<h1>取整数</h1>
-
-<p>lua数学库提供了三个取整函数</p>
-
-<p><strong>math.floor()，math.ceil()和math.modf()</strong></p>
-
-<p>math.floor()向负无穷取整</p>
-
-<p><img alt class="has" height="127" src="https://img-blog.csdnimg.cn/20190904200121599.png" width="546"></p>
-
-<p>math.ceil()向正无穷取证</p>
-
-<p><img alt class="has" height="106" src="https://img-blog.csdnimg.cn/20190904200225114.png" width="393"></p>
-
-<p>modf向零取整(有两个返回值，返回整数与小数部分)</p>
-
-<p><img alt class="has" height="103" src="https://img-blog.csdnimg.cn/20190904200327478.png" width="326"></p>
-
-<p> </p>
-]]></content>
-      <categories>
-        <category>lua</category>
-      </categories>
   </entry>
   <entry>
     <title>perf对多线程Profile简单流程</title>
@@ -4336,6 +4336,141 @@ export GOROOT=/usr/local/go
       </categories>
       <tags>
         <tag>kubernetes 后端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VC++ 6.0开发OCX控件时遇到LIBCMT.lib(crt0.obj)：error：LNK2001 unresolved external symbol _main问题解决记录</title>
+    <url>/2019/01/05/VC++%206.0%E5%BC%80%E5%8F%91OCX%E6%8E%A7%E4%BB%B6%E6%97%B6%E9%81%87%E5%88%B0LIBCMT.lib(crt0.obj)%20!%20error%20LNK2001!%20unresolved%20external%20symbol%20_main%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<span id="more"></span>
+<p>当你OCX控件的ReleaseMinDependency版时，你得到了下面这个链接错误：</p>
+
+<p>   <strong>LIBCMT.LIB(crt0.obj) : error LNK2001: unresolved external symbol _main</strong></p>
+
+<p>而Debug版本的编连却顺利通过。</p>
+
+<p><br>
+出错原因：<br>
+如果你在工程中使用了CRT函数，而这些函数又需要CRT启动代码，就会出现这种链接错误。默认情况下，ReleaseMinDepende配置的Preprocessor definitions中定义了<span style="color:#f33b45;"><strong>_ATL_MIN_CRT</strong></span>，它将CRT启动代码从你的EXE或DLL剔出去了。</p>
+
+<p> </p>
+
+<p>背景知识：</p>
+
+<p>ATL支持把一个服务器编连优化成最小尺寸或者依赖性最小。我们可以定义三个预处理器符号来影响服务器的优化。</p>
+
+<p>_ATL_MIN_CRT             服务器不链接标准的C/C++运行库</p>
+
+<p>_ATL_DLL                  服务器动态链接工具函数库atl.dll</p>
+
+<p>_ATL_STATIC_REGISTRY    服务器静态链接对组件注册的支持</p>
+
+<p>如果定义了预处理器符号_ATL_MIN_CRT，那么我们的服务器不链接C/C++运行库，并且ATL提供了函数malloc、realloc、new和delete的一个实现。当定义了这个符号时，我们不能调用任何其他的C/C++运行库的函数。否则，就会受到这样的待遇：</p>
+
+<p>LIBCMT.LIB(crt0.obj) : error LNK2001: unresolved external symbol _main</p>
+
+<p>ATL向导生成的ATL工程为所有的Release版本的编连定义了_ATL_MIN_CRT，但是没有为Debug版本定义这个符号。</p>
+
+<p>Debug配置没有定义这三个符号中的任何一个。</p>
+
+<p>RelMinSize配置定义了_ATL_MIN_CRT和_ATL_DLL。</p>
+
+<p>RelMinDependency配置定义了_ATL_MIN_CRT和_ATL_STATIC_REGISTRY。</p>
+
+<p> </p>
+
+<p> </p>
+
+<p>解决方法：</p>
+
+<p>Project -----&gt; Settings-----&gt; C/C++</p>
+
+<p>在Category中选择General ;</p>
+
+<p>去除<span style="color:#f33b45;"><strong>_ATL_MIN_CRT</strong></span>这个预处理符号；</p>
+
+<p> </p>
+
+<p> </p>
+
+<p>参考来自：<a href="https://blog.csdn.net/richie12/article/details/5799097">https://blog.csdn.net/richie12/article/details/5799097</a></p>]]></content>
+      <tags>
+        <tag>VC 6.0 OCX控件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Xshell连接虚拟机失败Could not connect to &#39;192.xxx.xx.xxx&#39; (port 22)：Connection failed.</title>
+    <url>/2019/05/27/Xshell%E8%BF%9E%E6%8E%A5%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%A4%B1%E8%B4%A5Could%20not%20connect%20to%20&#39;192.xxx.xx.xxx&#39;%20(port%2022)!%20Connection%20failed/</url>
+    <content><![CDATA[<span id="more"></span>
+<p>之后的工作会使用Xshell，今天搞一个下来连接自己的虚拟机，发现连接失败：</p>
+
+<p><img alt class="has" height="106" src="https://img-blog.csdnimg.cn/20190527100348655.png" width="527"></p>
+
+<p>猜想是可能是虚拟机或者Xshell部分没设置好</p>
+
+<p>查询后通过以下方法解决，做此记录：</p>
+
+<p>1.安装OpenSSH，执行<strong>sudo apt-get install openssh-server openssh-client</strong>命令。</p>
+
+<p><img alt class="has" height="252" src="https://img-blog.csdnimg.cn/20190527100736178.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="734"></p>
+
+<p>2.执行<strong>netstat -tnl</strong>命令，查看22端口。</p>
+
+<p><img alt class="has" height="199" src="https://img-blog.csdnimg.cn/20190527100842369.png" width="761"></p>
+
+<p>博主通过以上方法已可以接连上。</p>
+
+<p><img alt class="has" height="328" src="https://img-blog.csdnimg.cn/20190527101126749.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="627"></p>
+
+<p>参考地址：<a href="https://blog.csdn.net/s243471087/article/details/80208985">https://blog.csdn.net/s243471087/article/details/80208985</a></p>
+
+<p> </p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>Xshell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>golang net/http包在k8s使用中碰到http：superfluous response.WriteHeader call from xxx的问题</title>
+    <url>/2021/01/21/golang%20net!http%E5%8C%85%E5%9C%A8k8s%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%A2%B0%E5%88%B0http!%20superfluous%20response.WriteHeader%20call%20from%20xxx%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<span id="more"></span>
+<p>      在项目中，需要使用golang写http服务器并部署在k8s中，在server deployment.yaml中存在livenessProbe(存活探针)以及readinessProbe(就绪探针)，这两个我都是写了向服务器发送一个http请求，如果服务器收到并回复，则表示成功，但是在使用过程中，日志一直输出，这些会干扰日志的查看。</p>
+
+<p><img alt height="346" src="https://img-blog.csdnimg.cn/20210121174550591.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhbmZ1c2hlbjAwNw==,size_16,color_FFFFFF,t_70" width="688"></p>
+
+<p>经过查询与测试，最后修复，做此纪录，代码如下。</p>
+
+<pre>
+<code class="language-Go">func healthcheck(w http.ResponseWriter, r *http.Request) &#123;
+    //fmt.Fprintf(w, "i m live") 原来就是因为多了这行,然后一直输出,屏蔽了即可
+    w.WriteHeader(200)
+&#125;
+
+func main() &#123;
+    router := http.NewServeMux()
+    router.HandleFunc("/healthcheck", healthcheck)
+    port := fmt.Sprint(":", *config.Conf.HttpPort)
+    srv := &amp;http.Server&#123;
+        Addr:    port,
+        Handler: router,
+    &#125;
+
+    logger.Info("[HTTP] http server listen", port)
+    if err := srv.ListenAndServe(); err != nil &amp;&amp; err != http.ErrServerClosed &#123;
+        logger.Error("[HTTP] server listen on", port, ", err:", err)
+        os.Exit(1)
+    &#125;
+&#125;</code></pre>
+
+<p> </p>
+]]></content>
+      <categories>
+        <category>golang</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
       </tags>
   </entry>
 </search>
